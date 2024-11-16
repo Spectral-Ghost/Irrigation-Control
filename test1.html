@@ -77,6 +77,39 @@
         .threshold-container p {
             font-size: 24px;
         }
+
+        /* Styles for Mobile Devices */
+        @media (max-width: 768px) {
+            .data-container,
+            .button-container,
+            .input-container,
+            .threshold-container {
+                width: 90%;
+                flex-direction: column;
+                padding: 15px;
+            }
+            .data-head {
+                width: 90%;
+                font-size: 35px;
+            }
+            .data-item h2 {
+                font-size: 30px;
+            }
+            .data-item p {
+                font-size: 28px;
+            }
+            .threshold-container h3 {
+                font-size: 25px;
+            }
+            .threshold-container p {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 18px;
+                padding: 10px;
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -89,6 +122,7 @@
         </div>
     </div>
 
+    <!-- New Threshold Display Container -->
     <div class="threshold-container">
         <h3>Current Thresholds</h3>
         <p>Dry Max: <span id="displayDryMax">600</span></p>
@@ -112,6 +146,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
     <script>
+        // Firebase Configuration and Logic
         const firebaseConfig = {
             apiKey: "AIzaSyAoGA6OqSZXZnRD471zOPyaBf6341NlYks",
             authDomain: "capstone-58ebe.firebaseapp.com",
@@ -133,49 +168,13 @@
         const humidityRef = database.ref('Sensor/ldr_data');
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
         const thresholdsRef = database.ref('Sensor/thresholds');
-        const autoModeRef = database.ref('Control/autoMode');
-        const manualIrrigateRef = database.ref('Control/manualIrrigate');
 
-        autoModeRef.on('value', (snapshot) => {
-            autoMode = snapshot.val();
-            updateButtonState();
-            if (!autoMode) setIrrigation(false);
-        });
-
-        manualIrrigateRef.on('value', (snapshot) => {
-            manualIrrigate = snapshot.val();
-            updateButtonState();
-        });
-
-        function updateButtonState() {
-            const autoButton = document.getElementById("autoButton");
-            const irrigateButton = document.getElementById("irrigateButton");
-
-            autoButton.classList.toggle("on", autoMode);
-            autoButton.classList.toggle("off", !autoMode);
-
-            irrigateButton.classList.toggle("on", manualIrrigate && !autoMode);
-            irrigateButton.classList.toggle("off", !(manualIrrigate && !autoMode));
-        }
-
-        function toggleAuto() {
-            autoMode = !autoMode;
-            manualIrrigate = false;
-            autoModeRef.set(autoMode);
-            manualIrrigateRef.set(manualIrrigate);
-            if (!autoMode) setIrrigation(false);
-        }
-
-        function toggleIrrigate() {
-            if (!autoMode) {
-                manualIrrigate = !manualIrrigate;
-                manualIrrigateRef.set(manualIrrigate);
-                setIrrigation(manualIrrigate);
-            }
-        }
-
-        function setIrrigation(status) {
-            irrigationStatusRef.set(status);
+        function updateThresholds() {
+            dryMax = parseInt(document.getElementById("dryMax").value);
+            moistMax = parseInt(document.getElementById("moistMax").value);
+            
+            thresholdsRef.set({ dryMax, moistMax });
+            alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
         }
 
         thresholdsRef.on('value', (snapshot) => {
@@ -213,15 +212,36 @@
             humidityElement.style.color = color;
         });
 
-        function updateThresholds() {
-            dryMax = parseInt(document.getElementById("dryMax").value);
-            moistMax = parseInt(document.getElementById("moistMax").value);
+        function toggleAuto() {
+            autoMode = !autoMode;
+            manualIrrigate = false;
 
-            thresholdsRef.set({
-                dryMax,
-                moistMax
-            });
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
 
+            autoButton.classList.toggle("on", autoMode);
+            autoButton.classList.toggle("off", !autoMode);
+
+            irrigateButton.classList.remove("on");
+            irrigateButton.classList.add("off");
+
+            if (!autoMode) setIrrigation(false);
+        }
+
+        function toggleIrrigate() {
+            if (!autoMode) {
+                manualIrrigate = !manualIrrigate;
+
+                const irrigateButton = document.getElementById("irrigateButton");
+                irrigateButton.classList.toggle("on", manualIrrigate);
+                irrigateButton.classList.toggle("off", !manualIrrigate);
+
+                setIrrigation(manualIrrigate);
+            }
+        }
+
+        function setIrrigation(status) {
+            irrigationStatusRef.set(status);
         }
     </script>
 </body>
