@@ -34,6 +34,11 @@
             padding: 5px;
             font-size: 16px;
         }
+        .threshold-display {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #d2dae2;
+        }
         .button {
             font-size: 20px;
             padding: 10px 20px;
@@ -61,6 +66,7 @@
 
     <div class="threshold-container">
         <h2>Set Thresholds</h2>
+        <p class="threshold-display" id="currentThresholds">Loading current thresholds...</p>
         <input type="number" id="dryInput" class="threshold-input" placeholder="Dry Max Threshold">
         <input type="number" id="moistInput" class="threshold-input" placeholder="Moist Max Threshold">
         <button class="button" onclick="setThresholds()">Set Thresholds</button>
@@ -92,8 +98,13 @@
         thresholdsRef.on('value', (snapshot) => {
             const thresholds = snapshot.val();
             if (thresholds) {
+                // Update input fields
                 document.getElementById('dryInput').value = thresholds.dry || 600;
                 document.getElementById('moistInput').value = thresholds.moist || 1300;
+
+                // Display current thresholds
+                document.getElementById('currentThresholds').innerText = 
+                    `Current Thresholds: Dry ≤ ${thresholds.dry}, Moist ≤ ${thresholds.moist}, Wet > ${thresholds.moist}`;
             }
         });
 
