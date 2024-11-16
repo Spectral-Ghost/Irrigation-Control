@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
-        .data-container, .button-container, .threshold-container, .current-threshold-container {
+        .data-container, .button-container, .threshold-container, .display-thresholds {
             display: flex;
             justify-content: center;
             width: 50%;
@@ -24,7 +24,7 @@
             text-align: center;
             flex-direction: column;
         }
-        .data-item h2, .threshold-container h2, .current-threshold-container h2 {
+        .data-item h2, .threshold-container h2, .display-thresholds h2 {
             font-size: 25px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -66,10 +66,11 @@
         <button class="button" onclick="setThresholds()">Set Thresholds</button>
     </div>
 
-    <div class="current-threshold-container">
+    <!-- NEW SECTION TO DISPLAY CURRENT THRESHOLDS -->
+    <div class="display-thresholds">
         <h2>Current Thresholds</h2>
-        <p>Dry: <span id="currentDry">--</span></p>
-        <p>Moist: <span id="currentMoist">--</span></p>
+        <p id="currentDry">Dry Threshold: --</p>
+        <p id="currentMoist">Moist Threshold: --</p>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -101,9 +102,9 @@
                 document.getElementById('dryInput').value = thresholds.dry || 600;
                 document.getElementById('moistInput').value = thresholds.moist || 1300;
 
-                // Update current thresholds display
-                document.getElementById('currentDry').innerText = thresholds.dry || "--";
-                document.getElementById('currentMoist').innerText = thresholds.moist || "--";
+                // Update the display for current thresholds
+                document.getElementById('currentDry').innerText = `Dry Threshold: ${thresholds.dry || 600}`;
+                document.getElementById('currentMoist').innerText = `Moist Threshold: ${thresholds.moist || 1300}`;
             }
         });
 
