@@ -3,131 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irrigation Sensor Dashboard</title>
+    <title>Irrigation Sensor</title>
     <style>
         body {
-            background: linear-gradient(to right, #4CAF50, #81C784);
-            font-family: 'Poppins', sans-serif;
-            color: #2E7D32;
+            background-color: #1e272e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         /* Menu Styles */
         .menu {
-            width: 100%;
-            background-color: #2E7D32;
-            padding: 15px;
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            color: #FFF;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            justify-content: left;
+            background-color: #141414;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .menu a {
-            color: #FFF;
             text-decoration: none;
-            font-size: 18px;
-            transition: color 0.3s;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
         }
         .menu a:hover {
-            color: #FFEB3B;
+            background-color: #ffffff;
+            color: #1e272e;
         }
-        .container {
-            max-width: 1200px;
+        .data-container, .button-container, .input-container, .threshold-container {
+            display: flex;
+            justify-content: center;
+            width: 50%;
             margin: 20px auto;
             padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background-color: #FFF;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 25px;
+            background-color: #141414;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             text-align: center;
         }
-        .card h2 {
-            font-size: 30px;
-            color: #388E3C;
+        .data-item h2 {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        .card p {
+        .data-item p {
             font-size: 48px;
             font-weight: bold;
-            margin: 10px 0;
-            color: #1B5E20;
         }
-        .thresholds {
-            display: flex;
-            justify-content: space-around;
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        .thresholds span {
-            font-weight: bold;
-            color: #004D40;
-        }
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-        }
-        .input-container label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2E7D32;
-        }
-        .input-container input {
-            width: 60%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #A5D6A7;
-            background-color: #F1F8E9;
+        .data-head {
+            width: 50%;
             text-align: center;
-            font-size: 16px;
+            font-size: 45px;
+            font-weight: bold;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
         }
         .button {
-            background-color: #388E3C;
-            color: white;
-            font-size: 16px;
-            padding: 12px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #43A047;
-        }
-        .status-indicator {
             font-size: 20px;
-            margin-top: 20px;
-        }
-        .auto-manual-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        .toggle-button {
-            background-color: #FF7043;
-            font-size: 16px;
-            color: white;
-            padding: 12px;
+            padding: 10px 20px;
+            margin: 0 10px;
             border: none;
-            border-radius: 10px;
-            transition: 0.3s;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
         }
-        .toggle-button:hover {
-            background-color: #FF5722;
+        .off {
+            background-color: red;
+        }
+        .on {
+            background-color: blue;
+        }
+        .input-container label {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .input-container input {
+            width: 80px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .threshold-container {
+            flex-direction: column;
+        }
+        .threshold-container h3 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .threshold-container p {
+            font-size: 24px;
         }
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
+            .menu a {
+                font-size: 16px;
+                margin: 0 10px;
+                padding: 8px 15px;
+            }
+            .data-container,
+            .button-container,
+            .input-container,
+            .threshold-container {
+                width: 90%;
+                flex-direction: column;
+                padding: 15px;
+            }
+            .data-head {
+                width: 90%;
+                font-size: 35px;
+            }
+            .data-item h2 {
+                font-size: 30px;
+            }
+            .data-item p {
+                font-size: 28px;
+            }
+            .threshold-container h3 {
+                font-size: 25px;
+            }
+            .threshold-container p {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 18px;
+                padding: 10px;
+                margin: 5px 0;
             }
         }
     </style>
@@ -135,44 +143,38 @@
 <body>
     <!-- Menu -->
     <div class="menu">
-        <a href="main.html">Home</a>
-        <a href="Capstone.html">Irrigation Control</a>
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
     </div>
 
-    <div class="container">
-        <!-- Humidity Level Card -->
-        <div class="card">
-            <h2>Current Humidity</h2>
-            <p id="humidity">-- %</p>
-        </div>
+    <div class="data-head">Irrigation Sensor</div>
 
-        <!-- Threshold Control -->
-        <div class="card">
-            <h2>Threshold Settings</h2>
-            <div class="thresholds">
-                <div>Dry Max: <span id="displayDryMax">600</span></div>
-                <div>Moist Max: <span id="displayMoistMax">1300</span></div>
-            </div>
-            <div class="input-container">
-                <label for="dryMax">Dry Max:</label>
-                <input type="number" id="dryMax" value="600">
-                <label for="moistMax">Moist Max:</label>
-                <input type="number" id="moistMax" value="1300">
-                <button class="button" onclick="updateThresholds()">Save Thresholds</button>
-            </div>
-        </div>
-
-        <!-- Control Buttons -->
-        <div class="card">
-            <h2>Control Mode</h2>
-            <div class="auto-manual-container">
-                <button id="autoButton" class="toggle-button" onclick="toggleAuto()">Toggle Auto</button>
-                <button id="irrigateButton" class="toggle-button" onclick="toggleIrrigate()">Manual Irrigate</button>
-            </div>
+    <div class="data-container">
+        <div class="data-item">
+            <h2>Humidity Level:</h2>
+            <p class="value" id="humidity">--</p>
         </div>
     </div>
 
-    <!-- Firebase and JavaScript -->
+    <div class="threshold-container">
+        <h3>Current Thresholds</h3>
+        <p>Dry Max: <span id="displayDryMax">600</span></p>
+        <p>Moist Max: <span id="displayMoistMax">1300</span></p>
+    </div>
+
+    <div class="input-container">
+        <label>Dry Max:</label>
+        <input type="number" id="dryMax" value="600">
+        <label>Moist Max:</label>
+        <input type="number" id="moistMax" value="1300">
+        <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
+    </div>
+
+    <div class="button-container">
+        <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
+        <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script>
@@ -185,23 +187,106 @@
             messagingSenderId: "1046864472683",
             appId: "1:1046864472683:web:fdfa2bcb00d87a04db9f2e"
         };
+
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
+
+        let autoMode = false;
+        let manualIrrigate = false;
+        let dryMax = 600;
+        let moistMax = 1300;
+
         const humidityRef = database.ref('Sensor/ldr_data');
+        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
+        const thresholdsRef = database.ref('Sensor/thresholds');
         const autoModeRef = database.ref('Control/autoMode');
         const manualIrrigateRef = database.ref('Control/manualIrrigate');
-        const thresholdsRef = database.ref('Sensor/thresholds');
-        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
+
+        autoModeRef.on('value', (snapshot) => {
+            autoMode = snapshot.val();
+            updateButtonState();
+            if (!autoMode) setIrrigation(false);
+        });
+
+        manualIrrigateRef.on('value', (snapshot) => {
+            manualIrrigate = snapshot.val();
+            updateButtonState();
+        });
+
+        function updateButtonState() {
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
+
+            autoButton.classList.toggle("on", autoMode);
+            autoButton.classList.toggle("off", !autoMode);
+
+            irrigateButton.classList.toggle("on", manualIrrigate && !autoMode);
+            irrigateButton.classList.toggle("off", !(manualIrrigate && !autoMode));
+        }
+
+        function toggleAuto() {
+            autoMode = !autoMode;
+            manualIrrigate = false;
+            autoModeRef.set(autoMode);
+            manualIrrigateRef.set(manualIrrigate);
+            if (!autoMode) setIrrigation(false);
+        }
+
+        function toggleIrrigate() {
+            if (!autoMode) {
+                manualIrrigate = !manualIrrigate;
+                manualIrrigateRef.set(manualIrrigate);
+                setIrrigation(manualIrrigate);
+            }
+        }
+
+        function setIrrigation(status) {
+            irrigationStatusRef.set(status);
+        }
+
+        thresholdsRef.on('value', (snapshot) => {
+            const thresholds = snapshot.val();
+            if (thresholds) {
+                dryMax = thresholds.dryMax;
+                moistMax = thresholds.moistMax;
+
+                document.getElementById('displayDryMax').innerText = dryMax;
+                document.getElementById('displayMoistMax').innerText = moistMax;
+            }
+        });
 
         humidityRef.on('value', (snapshot) => {
-            const humidity = snapshot.val() || '--';
-            document.getElementById("humidity").innerText = humidity;
+            const humidity = snapshot.val();
+            let status = "";
+            let color = "";
+
+            if (humidity <= dryMax) {
+                status = "Dry";
+                color = "brown";
+                if (autoMode) setIrrigation(true);
+            } else if (humidity <= moistMax) {
+                status = "Moist";
+                color = "green";
+                if (autoMode) setIrrigation(false);
+            } else {
+                status = "Wet";
+                color = "blue";
+                if (autoMode) setIrrigation(false);
+            }
+
+            const humidityElement = document.getElementById("humidity");
+            humidityElement.innerText = `${humidity} (${status})`;
+            humidityElement.style.color = color;
         });
 
         function updateThresholds() {
-            const dryMax = Number(document.getElementById('dryMax').value);
-            const moistMax = Number(document.getElementById('moistMax').value);
-            thresholdsRef.set({ dryMax, moistMax });
+            const dryMaxInput = document.getElementById('dryMax').value;
+            const moistMaxInput = document.getElementById('moistMax').value;
+
+            thresholdsRef.set({
+                dryMax: Number(dryMaxInput),
+                moistMax: Number(moistMaxInput)
+            });
         }
     </script>
 </body>
