@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        body {
+            background-color: #1e272e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            background-color: #141414;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .button {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
+    </div>
+    <div class="content">
+        <h1>Welcome to the Irrigation System</h1>
+        <button class="button" onclick="location.href='Capstone.html'">Go to Irrigation Sensor</button>
+    </div>
+</body>
+</html>
