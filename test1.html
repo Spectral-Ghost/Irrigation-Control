@@ -11,9 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         .data-container, .button-container, .input-container {
             display: flex;
@@ -71,21 +68,24 @@
             font-size: 16px;
         }
         .threshold-container {
-            width: 50%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #2f3640;
-            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
+            width: 40%;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: #141414;
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             text-align: center;
         }
         .threshold-container h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #00a8ff;
         }
         .threshold-container p {
-            font-size: 30px;
+            font-size: 22px;
             margin: 5px 0;
+            color: #d2dae2;
         }
     </style>
 </head>
@@ -113,7 +113,7 @@
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
-    <!-- New Threshold Display at the Bottom -->
+    <!-- New Current Thresholds Section -->
     <div class="threshold-container">
         <h2>Current Thresholds</h2>
         <p>Dry Max: <span id="currentDryMax">600</span></p>
@@ -148,8 +148,8 @@
         function updateThresholds() {
             dryMax = parseInt(document.getElementById("dryMax").value);
             moistMax = parseInt(document.getElementById("moistMax").value);
-            
-            // Update the new GUI=
+
+            // Update the displayed current thresholds
             document.getElementById("currentDryMax").innerText = dryMax;
             document.getElementById("currentMoistMax").innerText = moistMax;
 
@@ -183,27 +183,15 @@
         function toggleAuto() {
             autoMode = !autoMode;
             manualIrrigate = false;
-
-            const autoButton = document.getElementById("autoButton");
-            const irrigateButton = document.getElementById("irrigateButton");
-
-            autoButton.classList.toggle("on", autoMode);
-            autoButton.classList.toggle("off", !autoMode);
-
-            irrigateButton.classList.remove("on");
-            irrigateButton.classList.add("off");
-
+            document.getElementById("autoButton").classList.toggle("on", autoMode);
+            document.getElementById("irrigateButton").classList.remove("on");
             if (!autoMode) setIrrigation(false);
         }
 
         function toggleIrrigate() {
             if (!autoMode) {
                 manualIrrigate = !manualIrrigate;
-
-                const irrigateButton = document.getElementById("irrigateButton");
-                irrigateButton.classList.toggle("on", manualIrrigate);
-                irrigateButton.classList.toggle("off", !manualIrrigate);
-
+                document.getElementById("irrigateButton").classList.toggle("on", manualIrrigate);
                 setIrrigation(manualIrrigate);
             }
         }
