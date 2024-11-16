@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irrigation Control</title>
+    <title>Main Page</title>
     <style>
         body {
             background-color: #1e272e;
@@ -12,48 +12,90 @@
             margin: 0;
             padding: 0;
         }
+        /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             background-color: #141414;
             padding: 15px;
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         .menu a {
-            color: white;
             text-decoration: none;
+            color: #ffffff;
             font-size: 20px;
             font-weight: bold;
+            margin: 0 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
         }
         .menu a:hover {
-            text-decoration: underline;
+            background-color: #ffffff;
+            color: #1e272e;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .title {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
         }
         .content {
             text-align: center;
-            margin-top: 50px;
+            width: 80%;
+            background-color: #141414;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
         }
-        .button {
-            font-size: 20px;
-            padding: 10px 20px;
-            background-color: blue;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .content p {
+            font-size: 24px;
         }
-        .button:hover {
-            background-color: darkblue;
+        @media (max-width: 768px) {
+            .menu a {
+                font-size: 16px;
+                margin: 0 10px;
+                padding: 8px 15px;
+            }
+            .title {
+                font-size: 35px;
+                padding: 15px;
+            }
+            .content {
+                width: 90%;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Menu -->
     <div class="menu">
         <a href="main.html">Main Page</a>
         <a href="Capstone.html">Irrigation Sensor</a>
     </div>
-    <div class="content">
-        <h1>Welcome to the Irrigation System</h1>
-        <button class="button" onclick="location.href='Capstone.html'">Go to Irrigation Sensor</button>
+
+    <div class="main-container">
+        <div class="title">Welcome to the Irrigation System Control</div>
+        <div class="content">
+            <p>This application allows you to monitor and manage your irrigation system in real-time.</p>
+            <p>Navigate to the <strong>Irrigation Sensor</strong> page to set thresholds, monitor soil moisture levels, and control irrigation operations manually or automatically.</p>
+            <p>Use the menu above to switch between pages.</p>
+        </div>
     </div>
 </body>
 </html>
