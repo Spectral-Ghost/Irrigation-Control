@@ -62,7 +62,7 @@
         }
         .reveal-button {
             position: fixed;
-            bottom: 20px;
+            bottom: 90px; /* Adjusted to appear just above the content */
             left: 20px;
             background-color: #007bff;
             color: white;
@@ -86,6 +86,8 @@
             bottom: 0;
             left: 0;
             z-index: 999; /* Ensure it sits above other content */
+            max-height: 50%; /* Set a max height for mobile responsiveness */
+            overflow-y: auto; /* Make it scrollable */
         }
         .content p {
             font-size: 24px;
@@ -168,7 +170,16 @@
     <script>
         function toggleContent() {
             const content = document.getElementById("content-container");
-            content.style.display = content.style.display === "none" || content.style.display === "" ? "block" : "none";
+            const button = document.getElementById("reveal-button");
+
+            // Toggle content visibility
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                button.style.display = "none"; // Hide the button when content appears
+            } else {
+                content.style.display = "none";
+                button.style.display = "block"; // Show the button again when content is hidden
+            }
         }
 
         function adjustButtonOpacity() {
