@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Irrigation Sensor</title>
-    <style type="text/css">
+    <style>
         body {
             background-color: #1e272e;
             color: #ffffff;
@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
-        .data-container, .button-container {
+        .data-container, .button-container, .input-container {
             display: flex;
             justify-content: center;
             width: 50%;
@@ -58,6 +58,15 @@
         .on {
             background-color: blue;
         }
+        .input-container label {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .input-container input {
+            width: 80px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -69,6 +78,14 @@
             <h2>Humidity Level:</h2>
             <p class="value" id="humidity">--</p>
         </div>
+    </div>
+
+    <div class="input-container">
+        <label>Dry Max:</label>
+        <input type="number" id="dryMax" value="600">
+        <label>Moist Max:</label>
+        <input type="number" id="moistMax" value="1300">
+        <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
     </div>
 
     <div class="button-container">
@@ -93,38 +110,37 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Variables to store states
         let autoMode = false;
         let manualIrrigate = false;
+        let dryMax = 600;
+        let moistMax = 1300;
 
         const humidityRef = database.ref('Sensor/ldr_data');
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
 
-        // Get humidity value and update status
+        function updateThresholds() {
+            dryMax = parseInt(document.getElementById("dryMax").value);
+            moistMax = parseInt(document.getElementById("moistMax").value);
+            alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
+        }
+
         humidityRef.on('value', (snapshot) => {
             const humidity = snapshot.val();
             let status = "";
             let color = "";
 
-            // Set status and color based on humidity level
-            if (humidity <= 600) {
+            if (humidity <= dryMax) {
                 status = "Dry";
                 color = "brown";
-                if (autoMode) { // Auto mode controls valve when dry
-                    setIrrigation(true);  // Ensure irrigation status is set to true when humidity is under 600
-                }
-            } else if (humidity > 600 && humidity <= 1300) {
+                if (autoMode) setIrrigation(true);
+            } else if (humidity > dryMax && humidity <= moistMax) {
                 status = "Moist";
                 color = "green";
-                if (autoMode) {
-                    setIrrigation(false);  // Turn off irrigation when moisture level is adequate
-                }
-            } else if (humidity > 1300) {
+                if (autoMode) setIrrigation(false);
+            } else if (humidity > moistMax) {
                 status = "Wet";
                 color = "red";
-                if (autoMode) {
-                    setIrrigation(false);  // Turn off irrigation when it's wet
-                }
+                if (autoMode) setIrrigation(false);
             }
 
             const humidityElement = document.getElementById('humidity');
@@ -132,10 +148,9 @@
             humidityElement.style.color = color;
         });
 
-        // Toggle Auto mode button
         function toggleAuto() {
             autoMode = !autoMode;
-            manualIrrigate = false; // Disable manual mode if auto is enabled
+            manualIrrigate = false;
 
             const autoButton = document.getElementById("autoButton");
             const irrigateButton = document.getElementById("irrigateButton");
@@ -143,30 +158,26 @@
             autoButton.classList.toggle("on", autoMode);
             autoButton.classList.toggle("off", !autoMode);
 
-            irrigateButton.classList.remove("on"); // Reset irrigate button
+            irrigateButton.classList.remove("on");
             irrigateButton.classList.add("off");
 
-            if (!autoMode) {
-                setIrrigation(false); // Turn off irrigation when auto mode is off
-            }
+            if (!autoMode) setIrrigation(false);
         }
 
-        // Toggle Irrigate button for manual control
         function toggleIrrigate() {
-            if (!autoMode) { // Manual control only works when auto mode is off
+            if (!autoMode) {
                 manualIrrigate = !manualIrrigate;
 
                 const irrigateButton = document.getElementById("irrigateButton");
                 irrigateButton.classList.toggle("on", manualIrrigate);
                 irrigateButton.classList.toggle("off", !manualIrrigate);
 
-                setIrrigation(manualIrrigate); // Control valve directly
+                setIrrigation(manualIrrigate);
             }
         }
 
-        // Function to update irrigation status in Firebase
         function setIrrigation(status) {
-            irrigationStatusRef.set(status); // Ensure the irrigation status is updated correctly in Firebase
+            irrigationStatusRef.set(status);
         }
     </script>
 </body>
