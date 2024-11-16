@@ -11,8 +11,15 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
         }
-        .data-container, .button-container, .threshold-container, .display-thresholds {
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+        .data-container, .button-container, .input-container {
             display: flex;
             justify-content: center;
             width: 50%;
@@ -22,62 +29,110 @@
             box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             text-align: center;
-            flex-direction: column;
         }
-        .data-item h2, .threshold-container h2, .display-thresholds h2 {
-            font-size: 25px;
+        .data-item h2 {
+            font-size: 50px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-        .threshold-input {
-            margin: 5px 0;
-            padding: 5px;
-            font-size: 16px;
+        .data-item p {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .data-head {
+            width: 50%;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
         }
         .button {
             font-size: 20px;
             padding: 10px 20px;
-            margin: 10px auto;
+            margin: 0 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             color: white;
+        }
+        .off {
+            background-color: red;
+        }
+        .on {
             background-color: blue;
         }
-        .button.off {
-            background-color: red;
+        .input-container label {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .input-container input {
+            width: 80px;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .threshold-container {
+            width: 30%;
+            margin: 20px;
+            padding: 20px;
+            background-color: #2f3640;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .threshold-container h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .threshold-container p {
+            font-size: 30px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="data-head">Irrigation Sensor</div>
 
-    <div class="data-container">
-        <div class="data-item">
-            <h2>Humidity Level:</h2>
-            <p class="value" id="humidity">--</p>
+    <div class="main-container">
+        <!-- Existing Content -->
+        <div>
+            <div class="data-head">Irrigation Sensor</div>
+
+            <div class="data-container">
+                <div class="data-item">
+                    <h2>Humidity Level:</h2>
+                    <p class="value" id="humidity">--</p>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <label>Dry Max:</label>
+                <input type="number" id="dryMax" value="600">
+                <label>Moist Max:</label>
+                <input type="number" id="moistMax" value="1300">
+                <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
+            </div>
+
+            <div class="button-container">
+                <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
+                <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
+            </div>
         </div>
-    </div>
 
-    <div class="threshold-container">
-        <h2>Set Thresholds</h2>
-        <input type="number" id="dryInput" class="threshold-input" placeholder="Dry Max Threshold">
-        <input type="number" id="moistInput" class="threshold-input" placeholder="Moist Max Threshold">
-        <button class="button" onclick="setThresholds()">Set Thresholds</button>
-    </div>
-
-    <!-- NEW SECTION TO DISPLAY CURRENT THRESHOLDS -->
-    <div class="display-thresholds">
-        <h2>Current Thresholds</h2>
-        <p id="currentDry">Dry Threshold: --</p>
-        <p id="currentMoist">Moist Threshold: --</p>
+        <!-- New Threshold Display -->
+        <div class="threshold-container">
+            <h2>Current Thresholds</h2>
+            <p>Dry Max: <span id="currentDryMax">600</span></p>
+            <p>Moist Max: <span id="currentMoistMax">1300</span></p>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
 
     <script>
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAoGA6OqSZXZnRD471zOPyaBf6341NlYks",
             authDomain: "capstone-58ebe.firebaseapp.com",
@@ -91,41 +146,42 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // References to thresholds
-        const thresholdsRef = database.ref('thresholds');
+        let autoMode = false;
+        let manualIrrigate = false;
+        let dryMax = 600;
+        let moistMax = 1300;
+
         const humidityRef = database.ref('Sensor/ldr_data');
+        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
 
-        // Update UI with real-time thresholds
-        thresholdsRef.on('value', (snapshot) => {
-            const thresholds = snapshot.val();
-            if (thresholds) {
-                document.getElementById('dryInput').value = thresholds.dry || 600;
-                document.getElementById('moistInput').value = thresholds.moist || 1300;
+        function updateThresholds() {
+            dryMax = parseInt(document.getElementById("dryMax").value);
+            moistMax = parseInt(document.getElementById("moistMax").value);
+            
+            // Update the new GUI
+            document.getElementById("currentDryMax").innerText = dryMax;
+            document.getElementById("currentMoistMax").innerText = moistMax;
 
-                // Update the display for current thresholds
-                document.getElementById('currentDry').innerText = `Dry Threshold: ${thresholds.dry || 600}`;
-                document.getElementById('currentMoist').innerText = `Moist Threshold: ${thresholds.moist || 1300}`;
-            }
-        });
+            alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
+        }
 
-        // Listen to humidity changes
         humidityRef.on('value', (snapshot) => {
             const humidity = snapshot.val();
-            const dryThreshold = parseInt(document.getElementById('dryInput').value) || 600;
-            const moistThreshold = parseInt(document.getElementById('moistInput').value) || 1300;
-
             let status = "";
             let color = "";
 
-            if (humidity <= dryThreshold) {
+            if (humidity <= dryMax) {
                 status = "Dry";
                 color = "brown";
-            } else if (humidity > dryThreshold && humidity <= moistThreshold) {
+                if (autoMode) setIrrigation(true);
+            } else if (humidity > dryMax && humidity <= moistMax) {
                 status = "Moist";
                 color = "green";
-            } else if (humidity > moistThreshold) {
+                if (autoMode) setIrrigation(false);
+            } else if (humidity > moistMax) {
                 status = "Wet";
                 color = "red";
+                if (autoMode) setIrrigation(false);
             }
 
             const humidityElement = document.getElementById('humidity');
@@ -133,23 +189,36 @@
             humidityElement.style.color = color;
         });
 
-        // Update thresholds in Firebase
-        function setThresholds() {
-            const dry = parseInt(document.getElementById('dryInput').value);
-            const moist = parseInt(document.getElementById('moistInput').value);
+        function toggleAuto() {
+            autoMode = !autoMode;
+            manualIrrigate = false;
 
-            if (isNaN(dry) || isNaN(moist) || dry >= moist) {
-                alert("Please enter valid thresholds (Dry < Moist).");
-                return;
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
+
+            autoButton.classList.toggle("on", autoMode);
+            autoButton.classList.toggle("off", !autoMode);
+
+            irrigateButton.classList.remove("on");
+            irrigateButton.classList.add("off");
+
+            if (!autoMode) setIrrigation(false);
+        }
+
+        function toggleIrrigate() {
+            if (!autoMode) {
+                manualIrrigate = !manualIrrigate;
+
+                const irrigateButton = document.getElementById("irrigateButton");
+                irrigateButton.classList.toggle("on", manualIrrigate);
+                irrigateButton.classList.toggle("off", !manualIrrigate);
+
+                setIrrigation(manualIrrigate);
             }
+        }
 
-            thresholdsRef.set({
-                dry: dry,
-                moist: moist,
-                wet: moist + 1
-            });
-
-            alert("Thresholds updated!");
+        function setIrrigation(status) {
+            irrigationStatusRef.set(status);
         }
     </script>
 </body>
