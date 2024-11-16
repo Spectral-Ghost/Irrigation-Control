@@ -67,30 +67,19 @@
             margin: 0 10px;
             font-size: 16px;
         }
-        .threshold-container {
-            width: 40%;
-            margin: 10px auto;
-            padding: 15px;
-            background-color: #141414;
-            color: #ffffff;
-            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+        .thresholds-container {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2f3640;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             text-align: center;
-        }
-        .threshold-container h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-            color: #00a8ff;
-        }
-        .threshold-container p {
-            font-size: 22px;
-            margin: 5px 0;
-            color: #d2dae2;
         }
     </style>
 </head>
 <body>
-
+  
     <div class="data-head">Irrigation Sensor</div>
 
     <div class="data-container">
@@ -113,9 +102,8 @@
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
-    <!-- New Curren Thresholds Sction -->
-    <div class="threshold-container">
-        <h2>Current Thresholds</h2>
+    <div class="thresholds-container">
+        <h3>Current Thresholds</h3>
         <p>Dry Max: <span id="currentDryMax">600</span></p>
         <p>Moist Max: <span id="currentMoistMax">1300</span></p>
     </div>
@@ -144,16 +132,34 @@
 
         const humidityRef = database.ref('Sensor/ldr_data');
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
+        const thresholdsRef = database.ref('Sensor/thresholds');
+
+        // Fetch thresholds from Firebase
+        thresholdsRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                dryMax = data.dryMax || 600;
+                moistMax = data.moistMax || 1300;
+                document.getElementById("currentDryMax").innerText = dryMax;
+                document.getElementById("currentMoistMax").innerText = moistMax;
+                document.getElementById("dryMax").value = dryMax;
+                document.getElementById("moistMax").value = moistMax;
+            }
+        });
 
         function updateThresholds() {
             dryMax = parseInt(document.getElementById("dryMax").value);
             moistMax = parseInt(document.getElementById("moistMax").value);
 
-            // Update the displayed current thresholds
-            document.getElementById("currentDryMax").innerText = dryMax;
-            document.getElementById("currentMoistMax").innerText = moistMax;
-
-            alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
+            // Update thresholds in Firebase
+            thresholdsRef.set({
+                dryMax: dryMax,
+                moistMax: moistMax
+            }).then(() => {
+                alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
+            }).catch((error) => {
+                console.error('Error updating thresholds:', error);
+            });
         }
 
         humidityRef.on('value', (snapshot) => {
@@ -179,22 +185,6 @@
             humidityElement.innerText = `${humidity} (${status})`;
             humidityElement.style.color = color;
         });
-
-        function toggleAuto() {
-            autoMode = !autoMode;
-            manualIrrigate = false;
-            document.getElementById("autoButton").classList.toggle("on", autoMode);
-            document.getElementById("irrigateButton").classList.remove("on");
-            if (!autoMode) setIrrigation(false);
-        }
-
-        function toggleIrrigate() {
-            if (!autoMode) {
-                manualIrrigate = !manualIrrigate;
-                document.getElementById("irrigateButton").classList.toggle("on", manualIrrigate);
-                setIrrigation(manualIrrigate);
-            }
-        }
 
         function setIrrigation(status) {
             irrigationStatusRef.set(status);
