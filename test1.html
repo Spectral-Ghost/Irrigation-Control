@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
-        .data-container, .button-container, .threshold-container {
+        .data-container, .button-container, .threshold-container, .current-threshold-container {
             display: flex;
             justify-content: center;
             width: 50%;
@@ -24,7 +24,7 @@
             text-align: center;
             flex-direction: column;
         }
-        .data-item h2, .threshold-container h2 {
+        .data-item h2, .threshold-container h2, .current-threshold-container h2 {
             font-size: 25px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -33,11 +33,6 @@
             margin: 5px 0;
             padding: 5px;
             font-size: 16px;
-        }
-        .threshold-display {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #d2dae2;
         }
         .button {
             font-size: 20px;
@@ -66,15 +61,15 @@
 
     <div class="threshold-container">
         <h2>Set Thresholds</h2>
-        <p class="threshold-display" id="currentThresholds">Loading current thresholds...</p>
         <input type="number" id="dryInput" class="threshold-input" placeholder="Dry Max Threshold">
         <input type="number" id="moistInput" class="threshold-input" placeholder="Moist Max Threshold">
         <button class="button" onclick="setThresholds()">Set Thresholds</button>
     </div>
 
-    <div class="button-container">
-        <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
-        <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
+    <div class="current-threshold-container">
+        <h2>Current Thresholds</h2>
+        <p>Dry: <span id="currentDry">--</span></p>
+        <p>Moist: <span id="currentMoist">--</span></p>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -95,34 +90,24 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Reference to the thresholds in Firebase
+        // References to thresholds
         const thresholdsRef = database.ref('thresholds');
         const humidityRef = database.ref('Sensor/ldr_data');
-        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
 
-        // Variables for controlling states
-        let autoMode = false;
-        let manualIrrigate = false;
-
-        // Function to display current thresholds from Firebase
+        // Update UI with real-time thresholds
         thresholdsRef.on('value', (snapshot) => {
             const thresholds = snapshot.val();
             if (thresholds) {
-                const dryThreshold = thresholds.dry || 600;
-                const moistThreshold = thresholds.moist || 1300;
-                const wetThreshold = thresholds.wet || 1300;
+                document.getElementById('dryInput').value = thresholds.dry || 600;
+                document.getElementById('moistInput').value = thresholds.moist || 1300;
 
-                // Update input fields
-                document.getElementById('dryInput').value = dryThreshold;
-                document.getElementById('moistInput').value = moistThreshold;
-
-                // Display current thresholds
-                document.getElementById('currentThresholds').innerText = 
-                    `Current Thresholds: Dry ≤ ${dryThreshold}, Moist ≤ ${moistThreshold}, Wet > ${wetThreshold}`;
+                // Update current thresholds display
+                document.getElementById('currentDry').innerText = thresholds.dry || "--";
+                document.getElementById('currentMoist').innerText = thresholds.moist || "--";
             }
         });
 
-        // Listen to changes in humidity and update status
+        // Listen to humidity changes
         humidityRef.on('value', (snapshot) => {
             const humidity = snapshot.val();
             const dryThreshold = parseInt(document.getElementById('dryInput').value) || 600;
@@ -134,15 +119,12 @@
             if (humidity <= dryThreshold) {
                 status = "Dry";
                 color = "brown";
-                if (autoMode) setIrrigation(true); // Auto mode irrigates if dry
             } else if (humidity > dryThreshold && humidity <= moistThreshold) {
                 status = "Moist";
                 color = "green";
-                if (autoMode) setIrrigation(false); // Auto mode stops irrigation if moist
             } else if (humidity > moistThreshold) {
                 status = "Wet";
                 color = "red";
-                if (autoMode) setIrrigation(false); // Auto mode stops irrigation if wet
             }
 
             const humidityElement = document.getElementById('humidity');
@@ -150,44 +132,7 @@
             humidityElement.style.color = color;
         });
 
-        // Function to toggle Auto mode
-        function toggleAuto() {
-            autoMode = !autoMode;
-            manualIrrigate = false; // Disable manual mode when auto is on
-
-            const autoButton = document.getElementById("autoButton");
-            const irrigateButton = document.getElementById("irrigateButton");
-
-            autoButton.classList.toggle("on", autoMode);
-            autoButton.classList.toggle("off", !autoMode);
-
-            irrigateButton.classList.remove("on"); // Reset irrigate button
-            irrigateButton.classList.add("off");
-
-            if (!autoMode) {
-                setIrrigation(false); // Turn off irrigation if auto is off
-            }
-        }
-
-        // Function to toggle Irrigate mode for manual control
-        function toggleIrrigate() {
-            if (!autoMode) {
-                manualIrrigate = !manualIrrigate;
-
-                const irrigateButton = document.getElementById("irrigateButton");
-                irrigateButton.classList.toggle("on", manualIrrigate);
-                irrigateButton.classList.toggle("off", !manualIrrigate);
-
-                setIrrigation(manualIrrigate); // Manual irrigation control
-            }
-        }
-
-        // Function to set irrigation status in Firebase
-        function setIrrigation(status) {
-            irrigationStatusRef.set(status);
-        }
-
-        // Function to update thresholds in Firebase
+        // Update thresholds in Firebase
         function setThresholds() {
             const dry = parseInt(document.getElementById('dryInput').value);
             const moist = parseInt(document.getElementById('moistInput').value);
