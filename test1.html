@@ -11,13 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-        .main-container {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
         }
         .data-container, .button-container, .input-container {
             display: flex;
@@ -74,59 +67,30 @@
             margin: 0 10px;
             font-size: 16px;
         }
-        .threshold-container {
-            width: 30%;
-            margin: 20px;
-            padding: 20px;
-            background-color: #2f3640;
-            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            text-align: center;
-        }
-        .threshold-container h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        .threshold-container p {
-            font-size: 30px;
-            margin: 5px 0;
-        }
     </style>
 </head>
 <body>
+  
+    <div class="data-head">Irrigation Sensor</div>
 
-    <div class="main-container">
-        <!-- Existing Content -->
-        <div>
-            <div class="data-head">Irrigation Sensor</div>
-
-            <div class="data-container">
-                <div class="data-item">
-                    <h2>Humidity Level:</h2>
-                    <p class="value" id="humidity">--</p>
-                </div>
-            </div>
-
-            <div class="input-container">
-                <label>Dry Max:</label>
-                <input type="number" id="dryMax" value="600">
-                <label>Moist Max:</label>
-                <input type="number" id="moistMax" value="1300">
-                <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
-            </div>
-
-            <div class="button-container">
-                <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
-                <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
-            </div>
+    <div class="data-container">
+        <div class="data-item">
+            <h2>Humidity Level:</h2>
+            <p class="value" id="humidity">--</p>
         </div>
+    </div>
 
-        <!-- New Threshold Display -->
-        <div class="threshold-container">
-            <h2>Current Thresholds</h2>
-            <p>Dry Max: <span id="currentDryMax">600</span></p>
-            <p>Moist Max: <span id="currentMoistMax">1300</span></p>
-        </div>
+    <div class="input-container">
+        <label>Dry Max:</label>
+        <input type="number" id="dryMax" value="600">
+        <label>Moist Max:</label>
+        <input type="number" id="moistMax" value="1300">
+        <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
+    </div>
+
+    <div class="button-container">
+        <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
+        <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
@@ -157,11 +121,6 @@
         function updateThresholds() {
             dryMax = parseInt(document.getElementById("dryMax").value);
             moistMax = parseInt(document.getElementById("moistMax").value);
-            
-            // Update the new GUI
-            document.getElementById("currentDryMax").innerText = dryMax;
-            document.getElementById("currentMoistMax").innerText = moistMax;
-
             alert(`Thresholds updated:\nDry Max: ${dryMax}\nMoist Max: ${moistMax}`);
         }
 
