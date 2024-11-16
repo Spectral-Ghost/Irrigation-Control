@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irrigation Sensor</title>
+    <style type="text/css">
+        body {
+            background-color: #1e272e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .data-container, .button-container {
+            display: flex;
+            justify-content: center;
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .data-item h2 {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .data-item p {
+            font-size: 48px;
+            font-weight: bold;
+        }
+        .data-head {
+            width: 50%;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+        .button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+        .off {
+            background-color: red;
+        }
+        .on {
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="data-head">Irrigation Sensor</div>
+
+    <div class="data-container">
+        <div class="data-item">
+            <h2>Humidity Level:</h2>
+            <p class="value" id="humidity">--</p>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
+        <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAoGA6OqSZXZnRD471zOPyaBf6341NlYks",
+            authDomain: "capstone-58ebe.firebaseapp.com",
+            databaseURL: "https://capstone-58ebe-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "capstone-58ebe",
+            storageBucket: "capstone-58ebe.appspot.com",
+            messagingSenderId: "1046864472683",
+            appId: "1:1046864472683:web:fdfa2bcb00d87a04db9f2e"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Variables to store states
+        let autoMode = false;
+        let manualIrrigate = false;
+
+        const humidityRef = database.ref('Sensor/ldr_data');
+        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
+
+        // Get humidity value and update status
+        humidityRef.on('value', (snapshot) => {
+            const humidity = snapshot.val();
+            let status = "";
+            let color = "";
+
+            // Set status and color based on humidity level
+            if (humidity <= 600) {
+                status = "Dry";
+                color = "brown";
+                if (autoMode) { // Auto mode controls valve when dry
+                    setIrrigation(true);  // Ensure irrigation status is set to true when humidity is under 600
+                }
+            } else if (humidity > 600 && humidity <= 1300) {
+                status = "Moist";
+                color = "green";
+                if (autoMode) {
+                    setIrrigation(false);  // Turn off irrigation when moisture level is adequate
+                }
+            } else if (humidity > 1300) {
+                status = "Wet";
+                color = "red";
+                if (autoMode) {
+                    setIrrigation(false);  // Turn off irrigation when it's wet
+                }
+            }
+
+            const humidityElement = document.getElementById('humidity');
+            humidityElement.innerText = `${humidity} (${status})`;
+            humidityElement.style.color = color;
+        });
+
+        // Toggle Auto mode button
+        function toggleAuto() {
+            autoMode = !autoMode;
+            manualIrrigate = false; // Disable manual mode if auto is enabled
+
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
+
+            autoButton.classList.toggle("on", autoMode);
+            autoButton.classList.toggle("off", !autoMode);
+
+            irrigateButton.classList.remove("on"); // Reset irrigate button
+            irrigateButton.classList.add("off");
+
+            if (!autoMode) {
+                setIrrigation(false); // Turn off irrigation when auto mode is off
+            }
+        }
+
+        // Toggle Irrigate button for manual control
+        function toggleIrrigate() {
+            if (!autoMode) { // Manual control only works when auto mode is off
+                manualIrrigate = !manualIrrigate;
+
+                const irrigateButton = document.getElementById("irrigateButton");
+                irrigateButton.classList.toggle("on", manualIrrigate);
+                irrigateButton.classList.toggle("off", !manualIrrigate);
+
+                setIrrigation(manualIrrigate); // Control valve directly
+            }
+        }
+
+        // Function to update irrigation status in Firebase
+        function setIrrigation(status) {
+            irrigationStatusRef.set(status); // Ensure the irrigation status is updated correctly in Firebase
+        }
+    </script>
+</body>
+</html>
