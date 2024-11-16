@@ -176,10 +176,11 @@
             // Toggle content visibility
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
-                button.style.bottom = `${content.offsetHeight + 20}px`;  // Adjust button position as content grows
+                content.scrollIntoView({ behavior: "smooth", block: "start" }); // Scrolls to the content
+                button.style.bottom = `${content.offsetHeight + 20}px`; // Adjust button position as content grows
             } else {
                 content.style.display = "none";
-                button.style.bottom = "20px";  // Reset button position when content is hidden
+                button.style.bottom = "20px"; // Reset button position when content is hidden
             }
         }
 
