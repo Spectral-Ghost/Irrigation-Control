@@ -5,140 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Irrigation Sensor</title>
     <style>
-        /* GitHub Dark Theme Inspired Styles */
         body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            background-color: #1e272e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+        /* Menu Styles */
         .menu {
             display: flex;
             justify-content: left;
-            background-color: #161b22;
+            background-color: #141414;
             padding: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         .menu a {
             text-decoration: none;
-            color: #c9d1d9;
-            font-size: 18px;
-            font-weight: 600;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
             margin: 0 20px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
         }
         .menu a:hover {
-            background-color: #30363d;
-            color: #f0f6fc;
-        }
-        .data-head {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            background-color: #161b22;
-            color: #f0f6fc;
-            margin: 30px auto;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            max-width: 80%;
+            background-color: #ffffff;
+            color: #1e272e;
         }
         .data-container, .button-container, .input-container, .threshold-container {
             display: flex;
             justify-content: center;
-            width: 60%;
+            width: 50%;
             margin: 20px auto;
-            padding: 25px;
-            background-color: #161b22;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            flex-direction: column;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
         }
         .data-item h2 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         .data-item p {
-            font-size: 40px;
-            font-weight: 700;
-            margin: 0;
+            font-size: 48px;
+            font-weight: bold;
         }
-        .threshold-container h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        .threshold-container p {
-            font-size: 20px;
+        .data-head {
+            width: 50%;
+            text-align: center;
+            font-size: 45px;
+            font-weight: bold;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
         }
         .button {
-            font-size: 18px;
-            padding: 12px 24px;
-            margin: 10px;
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 0 10px;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            color: white;
         }
         .off {
-            background-color: #f85149;
+            background-color: red;
         }
         .on {
-            background-color: #2ea043;
-        }
-        .off:hover {
-            background-color: #da3633;
-        }
-        .on:hover {
-            background-color: #238636;
+            background-color: blue;
         }
         .input-container label {
-            margin-right: 10px;
-            font-size: 18px;
+            margin: 0 10px;
+            font-size: 16px;
         }
         .input-container input {
-            width: 100px;
+            width: 80px;
             margin: 0 10px;
-            padding: 8px;
-            font-size: 18px;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            color: #c9d1d9;
-            border-radius: 6px;
+            font-size: 16px;
         }
-        .input-container input:focus {
-            border-color: #58a6ff;
-            outline: none;
+        .threshold-container {
+            flex-direction: column;
         }
-        .input-container button {
-            background-color: #0969da;
-            color: #f0f6fc;
+        .threshold-container h3 {
+            font-size: 30px;
+            margin-bottom: 10px;
         }
-        .input-container button:hover {
-            background-color: #0a71e0;
+        .threshold-container p {
+            font-size: 24px;
         }
         @media (max-width: 768px) {
             .menu a {
-                font-size: 14px;
+                font-size: 16px;
                 margin: 0 10px;
+                padding: 8px 15px;
             }
             .data-container,
             .button-container,
             .input-container,
             .threshold-container {
                 width: 90%;
+                flex-direction: column;
+                padding: 15px;
+            }
+            .data-head {
+                width: 90%;
+                font-size: 35px;
             }
             .data-item h2 {
-                font-size: 24px;
+                font-size: 30px;
             }
             .data-item p {
-                font-size: 36px;
+                font-size: 28px;
+            }
+            .threshold-container h3 {
+                font-size: 25px;
+            }
+            .threshold-container p {
+                font-size: 18px;
+            }
+            .button {
+                font-size: 18px;
+                padding: 10px;
+                margin: 5px 0;
             }
         }
     </style>
@@ -170,7 +167,7 @@
         <input type="number" id="dryMax" value="600">
         <label>Moist Max:</label>
         <input type="number" id="moistMax" value="1300">
-        <button class="button" onclick="updateThresholds()">Set Thresholds</button>
+        <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
     </div>
 
     <div class="button-container">
@@ -178,7 +175,6 @@
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
-    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script>
@@ -197,15 +193,19 @@
 
         let autoMode = false;
         let manualIrrigate = false;
+        let dryMax = 600;
+        let moistMax = 1300;
 
         const humidityRef = database.ref('Sensor/ldr_data');
+        const irrigationStatusRef = database.ref('Sensor/irrigation_status');
+        const thresholdsRef = database.ref('Sensor/thresholds');
         const autoModeRef = database.ref('Control/autoMode');
         const manualIrrigateRef = database.ref('Control/manualIrrigate');
-        const thresholdsRef = database.ref('Sensor/thresholds');
 
         autoModeRef.on('value', (snapshot) => {
             autoMode = snapshot.val();
             updateButtonState();
+            if (!autoMode) setIrrigation(false);
         });
 
         manualIrrigateRef.on('value', (snapshot) => {
@@ -214,22 +214,79 @@
         });
 
         function updateButtonState() {
-            document.getElementById("autoButton").className = `button ${autoMode ? 'on' : 'off'}`;
-            document.getElementById("irrigateButton").className = `button ${manualIrrigate ? 'on' : 'off'}`;
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
+
+            autoButton.classList.toggle("on", autoMode);
+            autoButton.classList.toggle("off", !autoMode);
+
+            irrigateButton.classList.toggle("on", manualIrrigate && !autoMode);
+            irrigateButton.classList.toggle("off", !(manualIrrigate && !autoMode));
         }
 
+        function toggleAuto() {
+            autoMode = !autoMode;
+            manualIrrigate = false;
+            autoModeRef.set(autoMode);
+            manualIrrigateRef.set(manualIrrigate);
+            if (!autoMode) setIrrigation(false);
+        }
+
+        function toggleIrrigate() {
+            if (!autoMode) {
+                manualIrrigate = !manualIrrigate;
+                manualIrrigateRef.set(manualIrrigate);
+                setIrrigation(manualIrrigate);
+            }
+        }
+
+        function setIrrigation(status) {
+            irrigationStatusRef.set(status);
+        }
+
+        thresholdsRef.on('value', (snapshot) => {
+            const thresholds = snapshot.val();
+            if (thresholds) {
+                dryMax = thresholds.dryMax;
+                moistMax = thresholds.moistMax;
+
+                document.getElementById('displayDryMax').innerText = dryMax;
+                document.getElementById('displayMoistMax').innerText = moistMax;
+            }
+        });
+
         humidityRef.on('value', (snapshot) => {
-            const humidity = snapshot.val() || 0;
-            const status = humidity <= 600 ? 'Dry' : humidity <= 1300 ? 'Moist' : 'Wet';
-            const color = status === 'Dry' ? 'brown' : status === 'Moist' ? 'green' : 'blue';
-            document.getElementById('humidity').textContent = `${humidity} (${status})`;
-            document.getElementById('humidity').style.color = color;
+            const humidity = snapshot.val();
+            let status = "";
+            let color = "";
+
+            if (humidity <= dryMax) {
+                status = "Dry";
+                color = "brown";
+                if (autoMode) setIrrigation(true);
+            } else if (humidity <= moistMax) {
+                status = "Moist";
+                color = "green";
+                if (autoMode) setIrrigation(false);
+            } else {
+                status = "Wet";
+                color = "blue";
+                if (autoMode) setIrrigation(false);
+            }
+
+            const humidityElement = document.getElementById("humidity");
+            humidityElement.innerText = `${humidity} (${status})`;
+            humidityElement.style.color = color;
         });
 
         function updateThresholds() {
-            const dryMax = Number(document.getElementById('dryMax').value);
-            const moistMax = Number(document.getElementById('moistMax').value);
-            thresholdsRef.set({ dryMax, moistMax });
+            const dryMaxInput = document.getElementById('dryMax').value;
+            const moistMaxInput = document.getElementById('moistMax').value;
+
+            thresholdsRef.set({
+                dryMax: Number(dryMaxInput),
+                moistMax: Number(moistMaxInput)
+            });
         }
     </script>
 </body>
