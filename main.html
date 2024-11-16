@@ -11,6 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         /* Menu Styles */
         .menu {
@@ -60,15 +61,18 @@
             text-align: center;
         }
         .reveal-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
             background-color: #007bff;
             color: white;
             font-size: 18px;
             padding: 10px 20px;
-            margin-top: 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            z-index: 1000;
         }
         .reveal-button:hover {
             background-color: #0056b3;
@@ -77,6 +81,7 @@
             display: none;
             text-align: center;
             padding: 40px 20px;
+            animation: slideDown 0.8s ease-out forwards;
         }
         .content {
             text-align: center;
@@ -103,6 +108,16 @@
             font-size: 20px;
             line-height: 1.6;
             margin-left: 20px;
+        }
+        @keyframes slideDown {
+            from {
+                max-height: 0;
+                opacity: 0;
+            }
+            to {
+                max-height: 1000px;
+                opacity: 1;
+            }
         }
         @media (max-width: 768px) {
             .menu a {
@@ -136,8 +151,9 @@
     <div class="main-container">
         <div class="title">Welcome to R.A.I.N.</div>
         <div class="subtitle">(Remote Automated Irrigation Network)</div>
-        <button class="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
     </div>
+
+    <button class="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
 
     <div class="content-container" id="content-container">
         <div class="content">
