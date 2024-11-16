@@ -134,7 +134,7 @@
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
         const thresholdsRef = database.ref('Sensor/thresholds');
 
-        // Fetch thresholds from Firebase
+        // Fetch threshols from Firebase
         thresholdsRef.on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
