@@ -61,7 +61,7 @@
             text-align: center;
         }
         .reveal-button {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             left: 20px;
             background-color: #007bff;
@@ -82,11 +82,9 @@
             text-align: center;
             padding: 20px;
             animation: slideDown 0.8s ease-out forwards;
-            position: fixed; /* Fix it at the bottom of the page */
-            bottom: 0;
-            left: 0;
+            position: relative;
             z-index: 999; /* Ensure it sits above other content */
-            max-height: 50%; /* Set a max height for mobile responsiveness */
+            max-height: 50vh; /* Max height for mobile responsiveness */
             overflow-y: auto; /* Make it scrollable */
         }
         .content p {
@@ -175,8 +173,10 @@
             // Toggle content visibility
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
+                button.style.bottom = `${content.offsetHeight + 20}px`;  // Adjust button position as content grows
             } else {
                 content.style.display = "none";
+                button.style.bottom = "20px";  // Reset button position when content is hidden
             }
         }
 
