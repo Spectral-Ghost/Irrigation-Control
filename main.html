@@ -6,19 +6,20 @@
     <title>Main Page</title>
     <style>
         body {
-            background-image: url('images/image_2024-11-16_171011576.png');
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
+            background-image: url('images/image_2024-11-16_171011576.png'); /* Add your image path here */
+            background-size: cover; /* Ensures the image covers the entire screen */
+            background-position: center center; /* Centers the image */
+            background-attachment: fixed; /* Makes the background stay fixed when scrolling */
             color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
+        /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: left;
+            justify-content: center;
             background-color: #141414;
             padding: 15px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
@@ -78,16 +79,16 @@
         }
         .content-container {
             display: none;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
             color: #ffffff;
             width: 100%;
             text-align: center;
             padding: 20px;
             animation: slideDown 0.8s ease-out forwards;
             position: relative;
-            z-index: 999;
-            max-height: 50vh;
-            overflow-y: auto;
+            z-index: 999; /* Ensure it sits above other content */
+            max-height: 50vh; /* Max height for mobile responsiveness */
+            overflow-y: auto; /* Make it scrollable */
         }
         .content p {
             font-size: 24px;
@@ -132,6 +133,7 @@
     </style>
 </head>
 <body onscroll="adjustButtonOpacity()">
+    <!-- Menu -->
     <div class="menu">
         <a href="main.html">Main Page</a>
         <a href="Capstone.html">Irrigation Sensor</a>
@@ -171,19 +173,18 @@
             const content = document.getElementById("content-container");
             const button = document.getElementById("reveal-button");
 
-            // Toggle content visibility
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
                 
-                // Scroll halfway into the content
-                const contentTop = content.getBoundingClientRect().top + window.scrollY;
-                const halfwayPoint = contentTop + content.offsetHeight / 2 - window.innerHeight / 2;
-                window.scrollTo({ top: halfwayPoint, behavior: "smooth" });
+                // Add a delay before scrolling to the bottom
+                setTimeout(() => {
+                    content.scrollIntoView({ behavior: "smooth", block: "end" });
+                }, 100); // 100ms delay
 
-                button.style.bottom = `${content.offsetHeight + 20}px`; // Adjust button position as content grows
+                button.style.bottom = `${content.offsetHeight + 20}px`; // Adjust button position
             } else {
                 content.style.display = "none";
-                button.style.bottom = "20px"; // Reset button position when content is hidden
+                button.style.bottom = "20px"; // Reset button position
             }
         }
 
