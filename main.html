@@ -61,9 +61,6 @@
             text-align: center;
         }
         .reveal-button {
-            position: fixed;
-            bottom: 90px; /* Adjusted to appear just above the content */
-            left: 20px;
             background-color: #007bff;
             color: white;
             font-size: 18px;
@@ -73,6 +70,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, opacity 0.3s ease;
             z-index: 1000;
+            margin-top: 20px; /* Space between the button and the content */
         }
         .content-container {
             display: none;
@@ -143,9 +141,8 @@
         <div class="subtitle">(Remote Automated Irrigation Network)</div>
     </div>
 
-    <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
-
     <div class="content-container" id="content-container">
+        <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
         <h3>What is Irrigation Monitoring and Control System?</h3>
         <p>
             This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
@@ -175,10 +172,8 @@
             // Toggle content visibility
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
-                button.style.display = "none"; // Hide the button when content appears
             } else {
                 content.style.display = "none";
-                button.style.display = "block"; // Show the button again when content is hidden
             }
         }
 
