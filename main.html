@@ -53,6 +53,11 @@
             border-radius: 10px;
             text-align: center;
         }
+        .subtitle {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
         .content {
             text-align: center;
             width: 80%;
@@ -64,6 +69,20 @@
         }
         .content p {
             font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .features {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .features h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .features ul {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-left: 20px;
         }
         @media (max-width: 768px) {
             .menu a {
@@ -75,9 +94,14 @@
                 font-size: 35px;
                 padding: 15px;
             }
-            .content {
-                width: 90%;
+            .subtitle, .content p {
                 font-size: 20px;
+            }
+            .features h3 {
+                font-size: 24px;
+            }
+            .features ul {
+                font-size: 18px;
             }
         }
     </style>
@@ -90,11 +114,33 @@
     </div>
 
     <div class="main-container">
-        <div class="title">Welcome to the Irrigation System Control</div>
+        <div class="title">Welcome to R.A.I.N.</div>
+        <div class="subtitle">(Remote Automated Irrigation Network)</div>
         <div class="content">
             <p>This application allows you to monitor and manage your irrigation system in real-time.</p>
-            <p>Navigate to the <strong>Irrigation Sensor</strong> page to set thresholds, monitor soil moisture levels, and control irrigation operations manually or automatically.</p>
+            <p>Navigate to the <strong>Irrigation Sensor</strong> page to set thresholds, monitor soil moisture levels, and control irrigation modes manually or automatically.</p>
             <p>Use the menu above to switch between pages.</p>
+        </div>
+        <div class="content">
+            <h3>What is Irrigation Monitoring and Control System?</h3>
+            <p>
+                This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
+            </p>
+            <div class="features">
+                <h3>Key Features:</h3>
+                <ul>
+                    <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
+                    <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
+                    <li><strong>Irrigation Modes:</strong>
+                        <ul>
+                            <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
+                            <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
+                    <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>
