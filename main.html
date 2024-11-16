@@ -3,158 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to R.A.I.N.</title>
+    <title>Main Page</title>
     <style>
         body {
-            margin: 0;
+            background-color: #1e272e;
+            color: #ffffff;
             font-family: Arial, sans-serif;
-            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
-        /* Welcome Section */
-        .welcome-container {
+        /* Menu Styles */
+        .menu {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            color: #333;
+            background-color: #141414;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-
-        .welcome-text {
-            font-size: 36px;
+        .menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 20px;
             font-weight: bold;
-        }
-
-        /* Button at the Bottom */
-        .show-button {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
+            margin: 0 20px;
             padding: 10px 20px;
-            cursor: pointer;
-            font-size: 18px;
             border-radius: 5px;
-            transition: opacity 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
-
-        .show-button.transparent {
-            opacity: 0.5;
+        .menu a:hover {
+            background-color: #ffffff;
+            color: #1e272e;
         }
-
-        /* Content Section */
-        .content {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-            color: white;
-            padding: 30px;
-            transform: translateY(100%);
-            transition: transform 0.5s ease;
-        }
-
-        .content.open {
-            transform: translateY(0);
-        }
-
-        .content h2 {
-            margin-top: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .content p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* Scroll Transparency */
-        body {
-            position: relative;
-        }
-
-        .content-wrapper {
+        .main-container {
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-
-        /* Styles for Mobile Devices */
+        .title {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 20px;
+            background-color: #141414;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .reveal-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
+        }
+        .content-container {
+            display: none;
+            background-color: #1e272e;
+            color: #ffffff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            animation: slideDown 0.8s ease-out forwards;
+        }
+        .content p {
+            font-size: 24px;
+            line-height: 1.6;
+        }
+        .features {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .features ul {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 10px 20px;
+        }
+        @keyframes slideDown {
+            from {
+                max-height: 0;
+                opacity: 0;
+            }
+            to {
+                max-height: 1000px;
+                opacity: 1;
+            }
+        }
         @media (max-width: 768px) {
-            .welcome-text {
-                font-size: 24px;
-            }
-
-            .show-button {
+            .menu a {
                 font-size: 16px;
-                padding: 8px 16px;
+                margin: 0 10px;
+                padding: 8px 15px;
             }
-
-            .content h2 {
+            .title {
+                font-size: 35px;
+                padding: 15px;
+            }
+            .subtitle, .content p {
                 font-size: 20px;
             }
-
-            .content p {
-                font-size: 14px;
+            .features ul {
+                font-size: 18px;
             }
         }
     </style>
 </head>
-<body>
-
-    <!-- Welcome Section -->
-    <div class="welcome-container">
-        <div class="welcome-text">
-            Welcome to R.A.I.N. <br>
-            (it's short for "Remote Automated Irrigation Network")
-        </div>
+<body onscroll="adjustButtonOpacity()">
+    <!-- Menu -->
+    <div class="menu">
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
     </div>
 
-    <!-- "What is R.A.I.N." Button -->
-    <button class="show-button" id="toggleContentBtn">What is R.A.I.N.?</button>
+    <div class="main-container">
+        <div class="title">Welcome to R.A.I.N.</div>
+        <div class="subtitle">(Remote Automated Irrigation Network)</div>
+    </div>
 
-    <!-- Hidden Content -->
-    <div class="content" id="contentSection">
-        <div class="content-wrapper">
-            <h2>What is Irrigation Monitoring and Control System?</h2>
-            <p>This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.</p>
+    <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
 
+    <div class="content-container" id="content-container">
+        <h3>What is Irrigation Monitoring and Control System?</h3>
+        <p>
+            This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
+        </p>
+        <div class="features">
             <h3>Key Features:</h3>
             <ul>
-                <li><strong>Real-Time Humidity Monitoring</strong>: The app displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. It also dynamically adjusts the display color to visually indicate the soil's condition.</li>
-                <li><strong>Threshold Management</strong>: Users can define and update thresholds for "Dry Max" and "Moist Max" levels. These thresholds determine how the system interprets sensor data to automate irrigation.</li>
-                <li><strong>Irrigation Modes</strong>: 
+                <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
+                <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
+                <li><strong>Irrigation Modes:</strong>
                     <ul>
-                        <li><strong>Auto:</strong> The system automatically starts and stops irrigation based on soil moisture levels and user-defined thresholds.</li>
-                        <li><strong>Manual Irrigation:</strong> Users can manually control the irrigation process by toggling the "Irrigate" button.</li>
+                        <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
+                        <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
                     </ul>
                 </li>
-                <li><strong>Firebase:</strong> The app uses Firebase Realtime Database for communication between the sensors, the irrigation system, and all connected users. Any changes, such as mode toggles or threshold updates, are instantly updated for all devices.</li>
-                <li><strong>Responsive Design:</strong> The interface is designed to be user-friendly and works well across various devices, including desktops and smartphones.</li>
+                <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
+                <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
             </ul>
         </div>
     </div>
 
     <script>
-        const button = document.getElementById("toggleContentBtn");
-        const contentSection = document.getElementById("contentSection");
+        function toggleContent() {
+            const content = document.getElementById("content-container");
+            content.style.display = content.style.display === "none" || content.style.display === "" ? "block" : "none";
+        }
 
-        // Handle Scroll for Button Transparency
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const button = document.querySelector('.show-button');
-            button.classList.toggle('transparent', scrollPosition > 100);
-        });
-
-        // Show/Hide Content on Button Click
-        button.addEventListener("click", () => {
-            contentSection.classList.toggle("open");
-        });
+        function adjustButtonOpacity() {
+            const button = document.getElementById("reveal-button");
+            const scrollY = window.scrollY || window.pageYOffset;
+            const opacity = Math.max(0, 1 - scrollY / 200);
+            button.style.opacity = opacity;
+        }
     </script>
-
 </body>
 </html>
