@@ -15,6 +15,7 @@
             font-family: Arial, sans-serif;
             color: #ffffff;
             overflow-x: hidden;
+            font-size: 18px; /* Increased base font size */
         }
         /* Darker overlay */
         body::before {
@@ -39,22 +40,12 @@
             top: 0;
             z-index: 1000;
         }
-        /* Left-aligned links */
-        .menu-left {
-            display: flex;
-            gap: 20px;
-        }
-        /* Right-aligned links */
-        .menu-right {
-            display: flex;
-            gap: 20px;
-        }
         .menu a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 20px;
+            font-size: 22px; /* Increased font size for menu links */
             font-weight: bold;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -75,6 +66,11 @@
         h1 {
             text-align: center;
             color: #ffffff;
+            font-size: 32px; /* Increased font size for main heading */
+        }
+
+        h2 {
+            font-size: 28px; /* Increased font size for section headings */
         }
 
         .component {
@@ -98,10 +94,11 @@
         .key-features ul {
             list-style-type: none;
             padding: 0;
+            font-size: 18px; /* Increased font size for list items */
         }
 
         .key-features li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .key-features li span {
@@ -115,13 +112,15 @@
             border-radius: 10px;
         }
 
-        .research-questions h2 {
-            text-align: center;
+        .research-questions p {
+            margin-bottom: 18px;
+            line-height: 1.8;
+            font-size: 18px; /* Increased font size for paragraph text */
         }
 
-        .research-questions p {
-            margin-bottom: 15px;
-            line-height: 1.6;
+        .research-questions h2 {
+            text-align: center;
+            font-size: 28px; /* Increased font size for section heading */
         }
     </style>
 </head>
@@ -179,15 +178,15 @@
             <h2>Research Questions and Answers</h2>
             <p>The development of R.A.I.N. (Remote Automated Irrigation Network) is driven by the need to address gaps in efficient, automated irrigation systems that optimize water usage. The primary problem this product aims to solve is the inefficiency of traditional irrigation methods, which often result in either overwatering or underwatering plants. This problem not only affects plant health but also leads to wasteful water usage. By implementing a system that automatically adjusts irrigation based on real-time soil moisture data, R.A.I.N. ensures plants receive just the right amount of water, thus improving water conservation efforts.</p>
 
-            <p>The main objective of R.A.I.N. is to provide an automated, smart irrigation solution that reduces human intervention while maintaining healthy plants. Key goals include setting customizable moisture thresholds, integrating Firebase for real-time updates across devices, and ensuring the system is responsive on both desktop and mobile platforms. To achieve these goals, it is necessary to design both hardware (sensors and solenoid valve) and software (mobile/web interface and Firebase integration) components that work seamlessly together.</p>
+            <p>The main objective of R.A.I.N. is to provide an automated, smart irrigation solution that reduces human intervention while maintaining healthy plants. Key goals include setting customizable moisture thresholds, integrating Firebase for real-time updates across devices, and ensuring the system is responsive on both desktop and mobile platforms. To achieve these goals, it is necessary to design both hardware (such as the AquaValve and HydroSense Sensors) and software (mobile/web interface and Firebase integration) components that work seamlessly together.</p>
 
             <p>R.A.I.N. is innovative in its approach because it integrates real-time soil moisture sensing with automated irrigation control through WiFi, offering a level of convenience and precision not found in traditional irrigation systems. The system’s use of Firebase for real-time synchronization across multiple devices further enhances its functionality, allowing users to monitor and control irrigation from anywhere at any time. This approach sets R.A.I.N. apart from existing irrigation solutions that typically require manual adjustments or lack real-time data integration.</p>
 
             <p>From a feasibility standpoint, the development of R.A.I.N. requires a combination of hardware (such as the AquaValve and HydroSense Sensors) and software resources, including a WiFi network and Firebase for data management. While the implementation of this product is feasible within the scope of available technologies, potential challenges include ensuring reliable internet connectivity and sensor calibration in different environments. Additionally, the system must be designed to accommodate various plant types with different water requirements, which may necessitate further testing and adjustments.</p>
 
-            <p>In terms of testing and validation, the performance of R.A.I.N. will be assessed by simulating various soil moisture conditions and evaluating the system's ability to trigger irrigation based on predefined thresholds. Success will be measured by the accuracy of irrigation control and the system’s responsiveness to changes in soil moisture levels. Feedback from users will be gathered through surveys and system performance reviews, allowing for continuous improvement and refinement.</p>
+            <p>In terms of testing and validation, the performance and usability of R.A.I.N. will be evaluated through user feedback and field testing across different environments. Success will be measured based on system reliability, ease of use, and accuracy in meeting the irrigation needs of plants. Further studies may focus on enhancing scalability for larger agricultural operations or integrating additional features such as weather data integration.</p>
 
-            <p>R.A.I.N. aligns with current trends in smart agriculture and environmental sustainability, offering a scalable solution for both small-scale and large-scale agricultural operations. By providing automated control of irrigation, R.A.I.N. reduces water waste, supports plant health, and enhances the efficiency of water usage in farming practices. The system’s ability to adapt to different plant types and environments makes it suitable for various applications, from home gardens to commercial agriculture.</p>
+            <p>R.A.I.N. offers a sustainable solution for modern agriculture, contributing to water conservation efforts and improving the efficiency of irrigation systems. As global demand for efficient farming practices increases, R.A.I.N. aligns with current trends in smart agriculture, providing a scalable and adaptable solution for both small-scale and commercial applications. The system's ability to integrate with other technologies, such as weather forecasting and soil health monitoring, further expands its potential impact on sustainable farming practices.</p>
         </section>
     </div>
 </body>
