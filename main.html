@@ -47,29 +47,39 @@
             justify-content: center;
             height: 100vh;
             text-align: left;
-            gap: 20px;
+            gap: 30px;
+            padding: 0 20px;
         }
         .welcome-container {
-            background-color: rgba(20, 20, 20, 0.7); /* Semi-transparent background */
-            padding: 20px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(50, 50, 50, 0.8));
+            padding: 40px;
+            border-radius: 15px;
             text-align: center;
-            margin-right: 20px;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
         }
         .title {
-            font-size: 50px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 60px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.2;
+            margin: 0;
+        }
+        .title .highlight {
+            font-size: 28px;
+            color: #4CAF50;
+            font-weight: 500;
         }
         .subtitle {
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 24px;
+            color: #CCCCCC;
+            margin-top: 10px;
         }
         .rain-image {
-            max-width: 200px; /* Adjust size of the image */
+            max-width: 300px;
             height: auto;
-            margin-top: 20px; /* Adjust alignment */
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
         }
         .reveal-button {
             position: absolute;
@@ -98,65 +108,20 @@
             max-height: 50vh;
             overflow-y: auto;
         }
-        .content p {
-            font-size: 24px;
-            line-height: 1.6;
-        }
-        .features {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .features ul {
-            font-size: 20px;
-            line-height: 1.6;
-            margin: 10px 20px;
-        }
-        .learn-more-button {
-            margin-top: 20px;
-            background-color: #28a745;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .learn-more-button:hover {
-            background-color: #218838;
-        }
-        @keyframes slideDown {
-            from {
-                max-height: 0;
-                opacity: 0;
-            }
-            to {
-                max-height: 1000px;
-                opacity: 1;
-            }
-        }
         @media (max-width: 768px) {
-            .menu a {
-                font-size: 16px;
-                margin: 0 10px;
-                padding: 8px 15px;
-            }
             .main-container {
                 flex-direction: column;
                 text-align: center;
             }
             .title {
-                font-size: 35px;
+                font-size: 40px;
             }
             .subtitle {
                 font-size: 20px;
             }
             .rain-image {
-                margin-top: 10px;
-            }
-            .features ul {
-                font-size: 18px;
+                margin-top: 20px;
+                max-width: 200px;
             }
         }
     </style>
@@ -172,10 +137,12 @@
 
     <div class="main-container">
         <div class="welcome-container">
-            <div class="title">Welcome to R.A.I.N.</div>
+            <div class="title">
+                <span class="highlight">Welcome to</span><br>R.A.I.N.
+            </div>
             <div class="subtitle">(Remote Automated Irrigation Network)</div>
         </div>
-        <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
+        <img src="images/rain_logo.png" alt="RAIN Logo" class="rain-image">
     </div>
 
     <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
@@ -185,22 +152,6 @@
         <p>
             This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
         </p>
-        <div class="features">
-            <h3>Key Features:</h3>
-            <ul>
-                <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
-                <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
-                <li><strong>Irrigation Modes:</strong>
-                    <ul>
-                        <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
-                        <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
-                    </ul>
-                </li>
-                <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
-                <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
-            </ul>
-        </div>
-        <a href="more.html" class="learn-more-button">Learn more about R.A.I.N.</a>
     </div>
 
     <script>
