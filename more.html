@@ -16,7 +16,7 @@
             color: #ffffff;
             overflow-x: hidden;
         }
-        /* Dark overlay */
+        /* Darker overlay */
         body::before {
             content: '';
             position: fixed;
@@ -24,13 +24,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+            background-color: rgba(0, 0, 0, 0.85); /* Darker opacity */
             z-index: -1;
         }
         /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: flex-end; /* Align items to the right */
+            justify-content: space-between; /* Space between left and right sections */
+            align-items: center;
             background-color: #141414;
             padding: 15px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
@@ -38,12 +39,21 @@
             top: 0;
             z-index: 1000;
         }
+        /* Left-aligned links */
+        .menu-left {
+            display: flex;
+            gap: 20px;
+        }
+        /* Right-aligned links */
+        .menu-right {
+            display: flex;
+            gap: 20px;
+        }
         .menu a {
             text-decoration: none;
             color: #ffffff;
             font-size: 20px;
             font-weight: bold;
-            margin: 0 20px;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
@@ -57,9 +67,13 @@
 <body>
     <!-- Menu -->
     <div class="menu">
-        <a href="main.html">Main Page</a>
-        <a href="Capstone.html">Irrigation Sensor</a>
-        <a href="more.html">Learn More About R.A.I.N.</a>
+        <div class="menu-left">
+            <a href="main.html">Main Page</a>
+            <a href="Capstone.html">Irrigation Sensor</a>
+        </div>
+        <div class="menu-right">
+            <a href="more.html">Learn More About R.A.I.N.</a>
+        </div>
     </div>
 </body>
 </html>
