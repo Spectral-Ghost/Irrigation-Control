@@ -54,11 +54,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: rgba(20, 20, 20, 0.8); /* Darker semi-transparent background */
+            background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(0, 0, 0, 0)); /* Gradient opacity */
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             width: 100%;
+            height: 50vh; /* Half the viewport height */
             max-width: 600px;
             margin: 0 auto;
         }
@@ -66,7 +67,7 @@
             margin-bottom: 20px;
         }
         .rain-image {
-            max-width: 120px; /* Matches a balanced size */
+            max-width: 120px;
             height: auto;
         }
         .text-container {
@@ -81,7 +82,7 @@
         }
         .rain-main-title {
             font-size: 60px;
-            color: #00aaff; /* Matches the blue gradient from the logo */
+            color: #00aaff;
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 2px;
@@ -247,10 +248,14 @@
         }
 
         function adjustButtonOpacity() {
-            const button = document.getElementById("reveal-button");
-            const scrollY = window.scrollY || window.pageYOffset;
-            const opacity = Math.max(0, 1 - scrollY / 200);
-            button.style.opacity = opacity;
+            const revealButton = document.getElementById('reveal-button');
+            const scrollPosition = window.scrollY;
+
+            if (scrollPosition > 50) {
+                revealButton.style.opacity = 0.5;
+            } else {
+                revealButton.style.opacity = 1;
+            }
         }
     </script>
 </body>
