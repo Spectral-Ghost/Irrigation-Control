@@ -6,7 +6,7 @@
     <title>Main Page</title>
     <style>
         body {
-            background-image: url('images/background.png');
+            background-image: url('images/background.png'), linear-gradient(to right, rgba(20, 20, 20, 1) 20%, rgba(0, 0, 0, 0.4) 100%);
             background-size: cover;
             background-position: center center;
             background-attachment: fixed;
@@ -16,10 +16,7 @@
             padding: 0;
             overflow-x: hidden;
             height: 100vh; /* Ensure body takes full height */
-            background: linear-gradient(to right, rgba(20, 20, 20, 1) 20%, rgba(0, 0, 0, 0.4) 100%),
-                        url('images/background.png'); /* Apply gradient + background image */
-            background-size: cover;
-            background-position: center center;
+            position: relative;
         }
 
         .menu {
@@ -49,50 +46,52 @@
         }
         .main-container {
             display: flex;
-            justify-content: flex-start; /* Align to the left */
             align-items: center;
+            justify-content: center;
             height: 100%; /* Full height of the viewport */
             text-align: left;
-            gap: 20px; /* Closer gap between text and image */
-            padding: 0 10%;
+            gap: 20px;
         }
 
+        .welcome-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .rain-logo-container {
+            margin-bottom: 20px;
+        }
+        .rain-image {
+            max-width: 150px; /* Slightly larger image */
+            height: auto;
+        }
         .text-container {
-            text-align: left; /* Align text to the left */
-            max-width: 50%; /* Limit the width of the text container */
+            text-align: left; /* Text aligned to the left */
         }
-
         .rain-title {
-            font-size: 48px; /* Enlarged text */
+            font-size: 48px; /* Larger title */
             color: #ffffff;
             font-weight: 400;
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
         .rain-main-title {
-            font-size: 100px; /* Enlarged text */
+            font-size: 72px; /* Larger main title */
             color: #00aaff; /* Matches the blue gradient from the logo */
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
         .rain-subtitle {
-            font-size: 24px; /* Slightly larger text */
+            font-size: 20px;
             color: #cfcfcf;
             font-weight: 300;
             letter-spacing: 1px;
         }
-
-        .rain-logo-container {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-        }
-        .rain-image {
-            max-width: 180px; /* Slightly larger image */
-            height: auto;
-        }
-
         .reveal-button {
             position: absolute;
             bottom: 20px;
@@ -107,7 +106,6 @@
             transition: background-color 0.3s ease, opacity 0.3s ease;
             z-index: 1000;
         }
-
         .content-container {
             display: none;
             background-color: rgba(0, 0, 0, 0.7);
@@ -121,7 +119,6 @@
             max-height: 50vh;
             overflow-y: auto;
         }
-
         .content p {
             font-size: 24px;
             line-height: 1.6;
@@ -130,13 +127,11 @@
             margin-top: 20px;
             text-align: left;
         }
-
         .features ul {
             font-size: 20px;
             line-height: 1.6;
             margin: 10px 20px;
         }
-
         .learn-more-button {
             margin-top: 20px;
             background-color: #28a745;
@@ -149,11 +144,9 @@
             text-decoration: none;
             display: inline-block;
         }
-
         .learn-more-button:hover {
             background-color: #218838;
         }
-
         @keyframes slideDown {
             from {
                 max-height: 0;
@@ -164,32 +157,25 @@
                 opacity: 1;
             }
         }
-
         @media (max-width: 768px) {
             .menu a {
                 font-size: 16px;
                 margin: 0 10px;
                 padding: 8px 15px;
             }
-
             .main-container {
                 flex-direction: column;
-                align-items: center; /* Center the content on smaller screens */
-                padding: 0 20px;
+                text-align: center;
             }
-
             .rain-title {
-                font-size: 36px;
+                font-size: 28px;
             }
-
             .rain-main-title {
-                font-size: 80px;
+                font-size: 50px;
             }
-
             .rain-subtitle {
-                font-size: 20px;
+                font-size: 18px;
             }
-
             .features ul {
                 font-size: 18px;
             }
@@ -206,13 +192,15 @@
     </div>
 
     <div class="main-container">
-        <div class="text-container">
-            <div class="rain-title">Welcome to</div>
-            <div class="rain-main-title">R.A.I.N.</div>
-            <div class="rain-subtitle">Remote Automated Irrigation Network</div>
-        </div>
-        <div class="rain-logo-container">
-            <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
+        <div class="welcome-container">
+            <div class="text-container">
+                <div class="rain-title">Welcome to</div>
+                <div class="rain-main-title">R.A.I.N.</div>
+                <div class="rain-subtitle">Remote Automated Irrigation Network</div>
+            </div>
+            <div class="rain-logo-container">
+                <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
+            </div>
         </div>
     </div>
 
