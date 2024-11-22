@@ -6,22 +6,29 @@
     <title>Irrigation Sensor</title>
     <style>
         body {
-            background-color: #1e272e;
+            background-image: url('images/background.png'); /* Add your image path here */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
             color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: left;
+            justify-content: space-between;
             background-color: #141414;
             padding: 15px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
+        }
+        .menu-left, .menu-right {
+            display: flex;
         }
         .menu a {
             text-decoration: none;
@@ -37,6 +44,15 @@
             background-color: #ffffff;
             color: #1e272e;
         }
+        .menu-right {
+            margin-left: auto;
+        }
+        .menu-logo {
+            width: 40px; /* Adjust size as needed */
+            height: auto;
+            margin-right: 10px; /* Space between logo and the "Main Page" button */
+        }
+
         .data-container, .button-container, .input-container, .threshold-container {
             display: flex;
             justify-content: center;
@@ -143,8 +159,12 @@
 <body>
     <!-- Menu -->
     <div class="menu">
-        <a href="main.html">Main Page</a>
-        <a href="Capstone.html">Irrigation Sensor</a>
+        <div style="display: flex; align-items: center;">
+            <img src="images/logo.png" alt="Logo" class="menu-logo">
+            <a href="main.html">Main Page</a>
+            <a href="Capstone.html">Irrigation Sensor</a>
+        </div>
+        <a href="more.html">Learn More</a>
     </div>
 
     <div class="data-head">Irrigation Sensor</div>
@@ -175,6 +195,7 @@
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
+    <!-- Firebase scripts and functionality -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script>
@@ -244,50 +265,23 @@
             irrigationStatusRef.set(status);
         }
 
-        thresholdsRef.on('value', (snapshot) => {
-            const thresholds = snapshot.val();
-            if (thresholds) {
-                dryMax = thresholds.dryMax;
-                moistMax = thresholds.moistMax;
-
-                document.getElementById('displayDryMax').innerText = dryMax;
-                document.getElementById('displayMoistMax').innerText = moistMax;
-            }
-        });
+        function updateThresholds() {
+            dryMax = parseInt(document.getElementById("dryMax").value);
+            moistMax = parseInt(document.getElementById("moistMax").value);
+            thresholdsRef.set({ dryMax, moistMax });
+            document.getElementById("displayDryMax").textContent = dryMax;
+            document.getElementById("displayMoistMax").textContent = moistMax;
+        }
 
         humidityRef.on('value', (snapshot) => {
             const humidity = snapshot.val();
-            let status = "";
-            let color = "";
-
-            if (humidity <= dryMax) {
-                status = "Dry";
-                color = "brown";
-                if (autoMode) setIrrigation(true);
-            } else if (humidity <= moistMax) {
-                status = "Moist";
-                color = "green";
-                if (autoMode) setIrrigation(false);
-            } else {
-                status = "Wet";
-                color = "blue";
-                if (autoMode) setIrrigation(false);
+            document.getElementById("humidity").textContent = humidity || "--";
+            if (humidity < dryMax) {
+                setIrrigation(true);
+            } else if (humidity > moistMax) {
+                setIrrigation(false);
             }
-
-            const humidityElement = document.getElementById("humidity");
-            humidityElement.innerText = `${humidity} (${status})`;
-            humidityElement.style.color = color;
         });
-
-        function updateThresholds() {
-            const dryMaxInput = document.getElementById('dryMax').value;
-            const moistMaxInput = document.getElementById('moistMax').value;
-
-            thresholdsRef.set({
-                dryMax: Number(dryMaxInput),
-                moistMax: Number(moistMaxInput)
-            });
-        }
     </script>
 </body>
 </html>
