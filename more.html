@@ -6,7 +6,7 @@
     <title>Learn More About R.A.I.N.</title>
     <style>
         body {
-            background-image: url('images/background.png'); /* Add your image path here */
+            background-image: url('images/background.png');
             background-size: cover;
             background-position: center center;
             background-attachment: fixed;
@@ -15,7 +15,7 @@
             font-family: Arial, sans-serif;
             color: #ffffff;
             overflow-x: hidden;
-            font-size: 18px; /* Increased base font size */
+            font-size: 18px;
         }
         /* Darker overlay */
         body::before {
@@ -31,7 +31,7 @@
         /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: space-between; /* Space between left and right sections */
+            justify-content: space-between;
             align-items: center;
             background-color: #141414;
             padding: 15px;
@@ -43,7 +43,7 @@
         .menu a {
             text-decoration: none;
             color: #ffffff;
-            font-size: 22px; /* Increased font size for menu links */
+            font-size: 22px;
             font-weight: bold;
             padding: 12px 20px;
             border-radius: 5px;
@@ -54,9 +54,9 @@
             color: #1e272e;
         }
         .menu-logo {
-            width: 40px; /* Adjust size as needed */
+            width: 40px;
             height: auto;
-            margin-right: 10px; /* Space between logo and the "Main Page" button */
+            margin-right: 10px;
         }
 
         .content {
@@ -66,11 +66,11 @@
         h1 {
             text-align: center;
             color: #ffffff;
-            font-size: 32px; /* Increased font size for main heading */
+            font-size: 32px;
         }
 
         h2 {
-            font-size: 28px; /* Increased font size for section headings */
+            font-size: 28px;
         }
 
         .component {
@@ -84,17 +84,39 @@
             border-radius: 10px;
         }
 
-        .key-features {
-            margin-top: 40px;
-            background-color: rgba(0, 0, 0, 0.7);
+        /* Button styles for collapsible sections */
+        .collapsible {
+            background-color: #141414;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .collapsible:hover {
+            background-color: #ffffff;
+            color: #1e272e;
+        }
+
+        .content-section {
+            display: none;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-top: 10px;
             border-radius: 10px;
         }
 
         .key-features ul {
             list-style-type: none;
             padding: 0;
-            font-size: 18px; /* Increased font size for list items */
+            font-size: 18px;
         }
 
         .key-features li {
@@ -105,22 +127,15 @@
             font-weight: bold;
         }
 
-        .research-questions {
-            margin-top: 40px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         .research-questions p {
             margin-bottom: 18px;
             line-height: 1.8;
-            font-size: 18px; /* Increased font size for paragraph text */
+            font-size: 18px;
         }
 
         .research-questions h2 {
             text-align: center;
-            font-size: 28px; /* Increased font size for section heading */
+            font-size: 28px;
         }
     </style>
 </head>
@@ -153,8 +168,8 @@
             <img src="images/hydrosense.jpg" alt="HydroSense Sensor">
         </div>
 
-        <section class="key-features">
-            <h2>Key Features of R.A.I.N.</h2>
+        <button class="collapsible">Key Features of R.A.I.N.</button>
+        <div class="content-section key-features">
             <ul>
                 <li><span>Real-Time Humidity Monitoring:</span> The system displays the current soil moisture level, categorized as *Dry*, *Moist*, or *Wet*. The display color changes dynamically to indicate the soil's condition at a glance.</li>
                 <li><span>Threshold Management:</span> Users can set customizable moisture thresholds for the system, such as *Dry Max* and *Moist Max*. This feature ensures that irrigation is triggered or paused based on real-time data from the HydroSense Sensors.</li>
@@ -167,27 +182,37 @@
                 <li><span>Firebase Integration:</span> R.A.I.N. uses Firebase Realtime Database to provide instant updates to all connected devices, ensuring real-time synchronization and control.</li>
                 <li><span>Responsive Design:</span> The R.A.I.N. system works seamlessly across multiple devices, including desktops, tablets, and smartphones, ensuring access from anywhere.</li>
             </ul>
-        </section>
+        </div>
 
-        <section>
-            <h2>Why Set Thresholds?</h2>
+        <button class="collapsible">Why Set Thresholds?</button>
+        <div class="content-section">
             <p>Setting appropriate moisture thresholds is essential for different types of plants, as each plant has its own water needs. By defining specific thresholds for soil moisture, you ensure that your plants receive the optimal amount of water, promoting healthy growth and sustainability.</p>
-        </section>
+        </div>
 
-        <section class="research-questions">
-            <h2>Research Questions and Answers</h2>
+        <button class="collapsible">Research Questions and Answers</button>
+        <div class="content-section research-questions">
             <p>The development of R.A.I.N. (Remote Automated Irrigation Network) is driven by the need to address gaps in efficient, automated irrigation systems that optimize water usage. The primary problem this product aims to solve is the inefficiency of traditional irrigation methods, which often result in either overwatering or underwatering plants. This problem not only affects plant health but also leads to wasteful water usage. By implementing a system that automatically adjusts irrigation based on real-time soil moisture data, R.A.I.N. ensures plants receive just the right amount of water, thus improving water conservation efforts.</p>
-
             <p>The main objective of R.A.I.N. is to provide an automated, smart irrigation solution that reduces human intervention while maintaining healthy plants. Key goals include setting customizable moisture thresholds, integrating Firebase for real-time updates across devices, and ensuring the system is responsive on both desktop and mobile platforms. To achieve these goals, it is necessary to design both hardware (such as the AquaValve and HydroSense Sensors) and software (mobile/web interface and Firebase integration) components that work seamlessly together.</p>
-
             <p>R.A.I.N. is innovative in its approach because it integrates real-time soil moisture sensing with automated irrigation control through WiFi, offering a level of convenience and precision not found in traditional irrigation systems. The system’s use of Firebase for real-time synchronization across multiple devices further enhances its functionality, allowing users to monitor and control irrigation from anywhere at any time. This approach sets R.A.I.N. apart from existing irrigation solutions that typically require manual adjustments or lack real-time data integration.</p>
-
-            <p>From a feasibility standpoint, the development of R.A.I.N. requires a combination of hardware (such as the AquaValve and HydroSense Sensors) and software resources, including a WiFi network and Firebase for data management. While the implementation of this product is feasible within the scope of available technologies, potential challenges include ensuring reliable internet connectivity and sensor calibration in different environments. Additionally, the system must be designed to accommodate various plant types with different water requirements, which may necessitate further testing and adjustments.</p>
-
-            <p>In terms of testing and validation, the performance and usability of R.A.I.N. will be evaluated through user feedback and field testing across different environments. Success will be measured based on system reliability, ease of use, and accuracy in meeting the irrigation needs of plants. Further studies may focus on enhancing scalability for larger agricultural operations or integrating additional features such as weather data integration.</p>
-
-            <p>R.A.I.N. offers a sustainable solution for modern agriculture, contributing to water conservation efforts and improving the efficiency of irrigation systems. As global demand for efficient farming practices increases, R.A.I.N. aligns with current trends in smart agriculture, providing a scalable and adaptable solution for both small-scale and commercial applications. The system's ability to integrate with other technologies, such as weather forecasting and soil health monitoring, further expands its potential impact on sustainable farming practices.</p>
-        </section>
+            <p>From a feasibility standpoint, the development of R.A.I.N. requires a combination of hardware (such as the AquaValve and HydroSense Sensors) and software resources, including a WiFi network and Firebase for data management. While the implementation of this product is feasible within the scope of available technologies, potential challenges include ensuring reliable internet connectivity and sensor calibration in different environments. Additionally, the system must be designed to handle various plant types and soil conditions, which may vary significantly depending on geographic location and environmental factors.</p>
+        </div>
     </div>
+
+    <script>
+        // Collapsible sections script
+        var collapsibles = document.getElementsByClassName("collapsible");
+
+        for (var i = 0; i < collapsibles.length; i++) {
+            collapsibles[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
