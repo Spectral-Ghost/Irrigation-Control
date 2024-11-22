@@ -112,6 +112,26 @@
         .key-features li span {
             font-weight: bold;
         }
+
+        .research-questions {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .research-questions h2 {
+            text-align: center;
+        }
+
+        .research-questions ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .research-questions li {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -134,14 +154,14 @@
             <div class="component">
                 <h2>AquaValve (Solenoid Valve)</h2>
                 <p>The AquaValve is the heart of the irrigation system. It connects to both the power source and WiFi network, allowing automated control of water flow based on soil moisture readings. With this component, users can manage the flow of water efficiently and remotely.</p>
-                <img src="images/logo.png" alt="AquaValve">
+                <img src="images/aquavalve.jpg" alt="AquaValve">
             </div>
 
             <!-- HydroSense Sensor Section -->
             <div class="component">
                 <h2>HydroSense Sensors (Irrigation Sensors)</h2>
-                <p>The HydroSense Sensors monitor the soil moisture levels, keeping track of humidity status in real-time. They are also connected to both the power source and WiFi, enabling them to send updates to the system for precise irrigation control.</p>
-                <img src="images/logo.png" alt="HydroSense Sensor">
+                <p>The HydroSense Sensors monitor the soil moisture levels, keeping track of hydration status in real-time. They are also connected to both the power source and WiFi, enabling them to send updates to the system for precise irrigation control.</p>
+                <img src="images/hydrosense.jpg" alt="HydroSense Sensor">
             </div>
         </section>
 
@@ -164,6 +184,24 @@
         <section>
             <h2>Why Set Thresholds?</h2>
             <p>Setting appropriate moisture thresholds is essential for different types of plants, as each plant has its own water needs. By defining specific thresholds for soil moisture, you ensure that your plants receive the optimal amount of water, promoting healthy growth and sustainability.</p>
+        </section>
+
+        <section class="research-questions">
+            <h2>Research Questions and Answers</h2>
+            <ul>
+                <li><strong>Problem Statement:</strong> The product addresses the gap in efficient, automated irrigation management that optimizes water usage and reduces human intervention in plant care.</li>
+                <li><strong>Objectives:</strong> The primary goal is to automate irrigation based on real-time soil moisture data, enhancing water conservation and plant health. Objectives include setting thresholds and integrating Firebase for synchronization.</li>
+                <li><strong>Innovation:</strong> R.A.I.N. offers a unique integration of real-time soil moisture sensing and automatic irrigation control via WiFi, providing users with a seamless, automated irrigation solution.</li>
+                <li><strong>Feasibility:</strong> Resources required include sensors, WiFi modules, a solenoid valve, and a mobile/web interface. Constraints may involve internet reliability and sensor calibration.</li>
+                <li><strong>Design and Approach:</strong> The development framework includes Arduino for hardware control and Firebase for real-time data synchronization across devices.</li>
+                <li><strong>Data Collection:</strong> Data will be collected from soil moisture levels through sensors to validate the system's automatic irrigation functionality.</li>
+                <li><strong>Analysis:</strong> Data will be analyzed by comparing real-time moisture levels against predefined thresholds. Success will be measured based on the system's ability to maintain proper soil moisture without over-watering.</li>
+                <li><strong>Testing:</strong> The system will be tested by simulating different soil moisture conditions and evaluating the response time and accuracy of irrigation control.</li>
+                <li><strong>Feedback:</strong> User feedback will be collected through surveys, influencing future iterations for improved user experience and accuracy.</li>
+                <li><strong>Validation:</strong> Validation will be done by cross-referencing soil moisture readings with manual irrigation adjustments. Future scalability may involve additional sensor types and larger coverage areas.</li>
+                <li><strong>Sustainability:</strong> The product is sustainable by promoting water conservation and is scalable for various environments, aligning with future trends in smart farming and irrigation.</li>
+                <li><strong>Interdisciplinary Connections:</strong> The product connects to fields like agriculture, environmental science, and IoT. There are opportunities for collaboration with agricultural experts and technology developers.</li>
+            </ul>
         </section>
     </div>
 </body>
