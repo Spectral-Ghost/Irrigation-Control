@@ -1,1 +1,132 @@
-oke
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More About R.A.I.N.</title>
+    <style>
+        body {
+            background-image: url('images/image_2024-11-16_171011576.png'); /* Add your image path here */
+            background-size: cover; /* Ensures the image covers the entire screen */
+            background-position: center center; /* Centers the image */
+            background-attachment: fixed; /* Makes the background stay fixed when scrolling */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        /* Dark overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity here */
+            z-index: -1; /* Ensure it doesn't overlap the content */
+        }
+        /* Menu Styles */
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #141414;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .menu-left {
+            display: flex;
+        }
+        .menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .menu a:hover {
+            background-color: #ffffff;
+            color: #1e272e;
+        }
+        .menu-right a {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .menu-right a:hover {
+            background-color: #0056b3;
+        }
+        .content {
+            margin: 50px auto;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .menu a {
+                font-size: 16px;
+                margin: 0 10px;
+                padding: 8px 15px;
+            }
+            .content {
+                width: 90%;
+            }
+            .content h1 {
+                font-size: 28px;
+            }
+            .content p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu -->
+    <div class="menu">
+        <div class="menu-left">
+            <a href="main.html">Main Page</a>
+            <a href="Capstone.html">Irrigation Sensor</a>
+        </div>
+        <div class="menu-right">
+            <a href="more.html">Learn More About R.A.I.N.</a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h1>Learn More About R.A.I.N.</h1>
+        <p>
+            Welcome to the R.A.I.N. system! Our innovative solution combines advanced technology with sustainable practices to revolutionize irrigation.
+        </p>
+        <p>
+            Using real-time sensor data, R.A.I.N. ensures that your plants receive the perfect amount of water, optimizing resources while protecting the environment. Whether you're managing a small garden or a large agricultural field, R.A.I.N. adapts to your needs with precision.
+        </p>
+        <p>
+            Explore the features, understand the thresholds, and learn how R.A.I.N. can help you achieve your sustainability goals.
+        </p>
+    </div>
+</body>
+</html>
