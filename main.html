@@ -43,25 +43,33 @@
         }
         .main-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            text-align: left;
+            gap: 20px;
+        }
+        .welcome-container {
+            background-color: rgba(20, 20, 20, 0.7); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-right: 20px;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
         }
         .title {
             font-size: 50px;
             font-weight: bold;
             margin-bottom: 10px;
-            padding: 20px;
-            background-color: #141414;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            text-align: center;
         }
         .subtitle {
             font-size: 28px;
             margin-bottom: 20px;
-            text-align: center;
+        }
+        .rain-image {
+            max-width: 200px; /* Adjust size of the image */
+            height: auto;
+            margin-top: 20px; /* Adjust alignment */
         }
         .reveal-button {
             position: absolute;
@@ -134,12 +142,18 @@
                 margin: 0 10px;
                 padding: 8px 15px;
             }
+            .main-container {
+                flex-direction: column;
+                text-align: center;
+            }
             .title {
                 font-size: 35px;
-                padding: 15px;
             }
-            .subtitle, .content p {
+            .subtitle {
                 font-size: 20px;
+            }
+            .rain-image {
+                margin-top: 10px;
             }
             .features ul {
                 font-size: 18px;
@@ -157,8 +171,11 @@
     </div>
 
     <div class="main-container">
-        <div class="title">Welcome to R.A.I.N.</div>
-        <div class="subtitle">(Remote Automated Irrigation Network)</div>
+        <div class="welcome-container">
+            <div class="title">Welcome to R.A.I.N.</div>
+            <div class="subtitle">(Remote Automated Irrigation Network)</div>
+        </div>
+        <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
     </div>
 
     <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
