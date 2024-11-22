@@ -7,9 +7,9 @@
     <style>
         body {
             background-image: url('images/image_2024-11-16_171011576.png'); /* Add your image path here */
-            background-size: cover; /* Ensures the image covers the entire screen */
-            background-position: center center; /* Centers the image */
-            background-attachment: fixed; /* Makes the background stay fixed when scrolling */
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
             color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -20,7 +20,6 @@
         .menu {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             background-color: #141414;
             padding: 15px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
@@ -28,7 +27,7 @@
             top: 0;
             z-index: 1000;
         }
-        .menu-left {
+        .menu-left, .menu-right {
             display: flex;
         }
         .menu a {
@@ -45,17 +44,8 @@
             background-color: #ffffff;
             color: #1e272e;
         }
-        .menu-right a {
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .menu-right a:hover {
-            background-color: #0056b3;
+        .menu-right {
+            margin-left: auto;
         }
         .data-container, .button-container, .input-container, .threshold-container {
             display: flex;
@@ -168,7 +158,7 @@
             <a href="Capstone.html">Irrigation Sensor</a>
         </div>
         <div class="menu-right">
-            <a href="more.html">Learn More About R.A.I.N.</a>
+            <a href="more.html">Learn more about R.A.I.N.</a>
         </div>
     </div>
 
@@ -200,11 +190,11 @@
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
     </div>
 
-    <!-- Firebase and Script Section (unchanged) -->
+    <!-- Firebase scripts and functionality remain unchanged -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script>
-        // (Firebase script remains unchanged)
+        // Firebase setup and functionality as provided above...
     </script>
 </body>
 </html>
