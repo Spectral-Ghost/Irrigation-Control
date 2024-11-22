@@ -6,29 +6,20 @@
     <title>Main Page</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-            height: 100%; /* Ensure body takes full height */
-            overflow-x: hidden;
-            position: relative; /* Allow positioning of pseudo-elements */
-        }
-
-        /* Background image and gradient */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to right, rgba(20, 20, 20, 1) 20%, rgba(0, 0, 0, 0.4) 100%),
-                        url('images/background.png');
+            background-image: url('images/background.png');
             background-size: cover;
             background-position: center center;
-            background-attachment: fixed; /* Keep the background fixed during scroll */
-            z-index: -1; /* Make sure it stays behind the content */
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            height: 100vh; /* Ensure body takes full height */
+            background: linear-gradient(to right, rgba(20, 20, 20, 1) 20%, rgba(0, 0, 0, 0.4) 100%),
+                        url('images/background.png'); /* Apply gradient + background image */
+            background-size: cover;
+            background-position: center center;
         }
 
         .menu {
@@ -42,7 +33,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .menu a {
             text-decoration: none;
             color: #ffffff;
@@ -53,12 +43,10 @@
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
-
         .menu a:hover {
             background-color: #ffffff;
             color: #1e272e;
         }
-
         .main-container {
             display: flex;
             justify-content: flex-start; /* Align to the left */
@@ -81,7 +69,6 @@
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
-
         .rain-main-title {
             font-size: 100px; /* Enlarged text */
             color: #00aaff; /* Matches the blue gradient from the logo */
@@ -89,7 +76,6 @@
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
-
         .rain-subtitle {
             font-size: 24px; /* Slightly larger text */
             color: #cfcfcf;
@@ -100,9 +86,8 @@
         .rain-logo-container {
             margin-bottom: 20px;
             display: flex;
-            justify-content: left;
+            justify-content: center;
         }
-
         .rain-image {
             max-width: 200px; /* Slightly larger image */
             height: auto;
@@ -141,7 +126,6 @@
             font-size: 24px;
             line-height: 1.6;
         }
-
         .features {
             margin-top: 20px;
             text-align: left;
