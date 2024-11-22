@@ -119,13 +119,9 @@
             text-align: center;
         }
 
-        .research-questions ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .research-questions li {
+        .research-questions p {
             margin-bottom: 15px;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -181,20 +177,17 @@
 
         <section class="research-questions">
             <h2>Research Questions and Answers</h2>
-            <ul>
-                <li><strong>Problem Statement:</strong> The product addresses the gap in efficient, automated irrigation management that optimizes water usage and reduces human intervention in plant care.</li>
-                <li><strong>Objectives:</strong> The primary goal is to automate irrigation based on real-time soil moisture data, enhancing water conservation and plant health. Objectives include setting thresholds and integrating Firebase for synchronization.</li>
-                <li><strong>Innovation:</strong> R.A.I.N. offers a unique integration of real-time soil moisture sensing and automatic irrigation control via WiFi, providing users with a seamless, automated irrigation solution.</li>
-                <li><strong>Feasibility:</strong> Resources required include sensors, WiFi modules, a solenoid valve, and a mobile/web interface. Constraints may involve internet reliability and sensor calibration.</li>
-                <li><strong>Design and Approach:</strong> The development framework includes Arduino for hardware control and Firebase for real-time data synchronization across devices.</li>
-                <li><strong>Data Collection:</strong> Data will be collected from soil moisture levels through sensors to validate the system's automatic irrigation functionality.</li>
-                <li><strong>Analysis:</strong> Data will be analyzed by comparing real-time moisture levels against predefined thresholds. Success will be measured based on the system's ability to maintain proper soil moisture without over-watering.</li>
-                <li><strong>Testing:</strong> The system will be tested by simulating different soil moisture conditions and evaluating the response time and accuracy of irrigation control.</li>
-                <li><strong>Feedback:</strong> User feedback will be collected through surveys, influencing future iterations for improved user experience and accuracy.</li>
-                <li><strong>Validation:</strong> Validation will be done by cross-referencing soil moisture readings with manual irrigation adjustments. Future scalability may involve additional sensor types and larger coverage areas.</li>
-                <li><strong>Sustainability:</strong> The product is sustainable by promoting water conservation and is scalable for various environments, aligning with future trends in smart farming and irrigation.</li>
-                <li><strong>Interdisciplinary Connections:</strong> The product connects to fields like agriculture, environmental science, and IoT. There are opportunities for cross-functional collaboration to enhance its capabilities.</li>
-            </ul>
+            <p>The development of R.A.I.N. (Remote Automated Irrigation Network) is driven by the need to address gaps in efficient, automated irrigation systems that optimize water usage. The primary problem this product aims to solve is the inefficiency of traditional irrigation methods, which often result in either overwatering or underwatering plants. This problem not only affects plant health but also leads to wasteful water usage. By implementing a system that automatically adjusts irrigation based on real-time soil moisture data, R.A.I.N. ensures plants receive just the right amount of water, thus improving water conservation efforts.</p>
+
+            <p>The main objective of R.A.I.N. is to provide an automated, smart irrigation solution that reduces human intervention while maintaining healthy plants. Key goals include setting customizable moisture thresholds, integrating Firebase for real-time updates across devices, and ensuring the system is responsive on both desktop and mobile platforms. To achieve these goals, it is necessary to design both hardware (sensors and solenoid valve) and software (mobile/web interface and Firebase integration) components that work seamlessly together.</p>
+
+            <p>R.A.I.N. is innovative in its approach because it integrates real-time soil moisture sensing with automated irrigation control through WiFi, offering a level of convenience and precision not found in traditional irrigation systems. The system’s use of Firebase for real-time synchronization across multiple devices further enhances its functionality, allowing users to monitor and control irrigation from anywhere at any time. This approach sets R.A.I.N. apart from existing irrigation solutions that typically require manual adjustments or lack real-time data integration.</p>
+
+            <p>From a feasibility standpoint, the development of R.A.I.N. requires a combination of hardware (such as the AquaValve and HydroSense Sensors) and software resources, including a WiFi network and Firebase for data management. While the implementation of this product is feasible within the scope of available technologies, potential challenges include ensuring reliable internet connectivity and sensor calibration in different environments. Additionally, the system must be designed to accommodate various plant types with different water requirements, which may necessitate further testing and adjustments.</p>
+
+            <p>In terms of testing and validation, the performance of R.A.I.N. will be assessed by simulating various soil moisture conditions and evaluating the system's ability to trigger irrigation based on predefined thresholds. Success will be measured by the accuracy of irrigation control and the system’s responsiveness to changes in soil moisture levels. Feedback from users will be gathered through surveys and system performance reviews, allowing for continuous improvement and refinement.</p>
+
+            <p>R.A.I.N. aligns with current trends in smart agriculture and environmental sustainability, offering a scalable solution for both small-scale and large-scale agricultural operations. By providing automated control of irrigation, R.A.I.N. reduces water waste, supports plant health, and enhances the efficiency of water usage in farming practices. The system’s ability to adapt to different plant types and environments makes it suitable for various applications, from home gardens to commercial agriculture.</p>
         </section>
     </div>
 </body>
