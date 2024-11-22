@@ -15,9 +15,9 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            height: 100vh;
+            height: 100vh; /* Ensure body takes full height */
             background: linear-gradient(to right, rgba(20, 20, 20, 1) 20%, rgba(0, 0, 0, 0.4) 100%),
-                        url('images/background.png');
+                        url('images/background.png'); /* Apply gradient + background image */
             background-size: cover;
             background-position: center center;
         }
@@ -49,40 +49,41 @@
         }
         .main-container {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Align to the left */
             align-items: center;
-            height: 100%;
+            height: 100%; /* Full height of the viewport */
             text-align: left;
-            gap: 20px;
+            gap: 20px; /* Closer gap between text and image */
             padding: 0 10%;
         }
         .menu-logo {
-            width: 40px;
+            width: 40px; /* Adjust size as needed */
             height: auto;
-            margin-right: 10px;
+            margin-right: 10px; /* Space between logo and the "Main Page" button */
         }
 
+
         .text-container {
-            text-align: left;
-            max-width: 50%;
+            text-align: left; /* Align text to the left */
+            max-width: 50%; /* Limit the width of the text container */
         }
 
         .rain-title {
-            font-size: 48px;
+            font-size: 48px; /* Enlarged text */
             color: #ffffff;
             font-weight: 400;
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
         .rain-main-title {
-            font-size: 100px;
-            color: #00aaff;
+            font-size: 100px; /* Enlarged text */
+            color: #00aaff; /* Matches the blue gradient from the logo */
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
         .rain-subtitle {
-            font-size: 24px;
+            font-size: 24px; /* Slightly larger text */
             color: #cfcfcf;
             font-weight: 300;
             letter-spacing: 1px;
@@ -94,8 +95,23 @@
             justify-content: center;
         }
         .rain-image {
-            max-width: 200px;
+            max-width: 200px; /* Slightly larger image */
             height: auto;
+        }
+
+        .reveal-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
         }
 
         .content-container {
@@ -112,32 +128,91 @@
             overflow-y: auto;
         }
 
-        .page-transition {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #141414;
-            z-index: 10000;
-            transform: translateX(100%);
-            transition: transform 0.5s ease;
+        .content p {
+            font-size: 24px;
+            line-height: 1.6;
+        }
+        .features {
+            margin-top: 20px;
+            text-align: left;
         }
 
-        .page-transition.active {
-            transform: translateX(0);
+        .features ul {
+            font-size: 20px;
+            line-height: 1.6;
+            margin: 10px 20px;
+        }
+
+        .learn-more-button {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .learn-more-button:hover {
+            background-color: #218838;
+        }
+
+        @keyframes slideDown {
+            from {
+                max-height: 0;
+                opacity: 0;
+            }
+            to {
+                max-height: 1000px;
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu a {
+                font-size: 16px;
+                margin: 0 10px;
+                padding: 8px 15px;
+            }
+
+            .main-container {
+                flex-direction: column;
+                align-items: center; /* Center the content on smaller screens */
+                padding: 0 20px;
+            }
+
+            .rain-title {
+                font-size: 36px;
+            }
+
+            .rain-main-title {
+                font-size: 80px;
+            }
+
+            .rain-subtitle {
+                font-size: 20px;
+            }
+
+            .features ul {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body onscroll="adjustButtonOpacity()">
-    <div class="menu">
-        <div style="display: flex; align-items: center;">
-            <img src="images/logo.png" alt="Logo" class="menu-logo">
-            <a href="javascript:void(0);" onclick="navigateTo('main.html')">Main Page</a>
-            <a href="javascript:void(0);" onclick="navigateTo('capstone.html')">Irrigation Sensor</a>
-        </div>
-        <a href="more.html">Learn More</a>
+ <div class="menu">
+    <div style="display: flex; align-items: center;">
+        <img src="images/logo.png" alt="Logo" class="menu-logo">
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
     </div>
+    <a href="more.html">Learn More</a>
+</div>
+
+
 
     <div class="main-container">
         <div class="text-container">
@@ -150,19 +225,55 @@
         </div>
     </div>
 
-    <div class="page-transition" id="page-transition"></div>
+    <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
+
+    <div class="content-container" id="content-container">
+        <h3>What is Remote Automated Irrigation Network?</h3>
+        <p>
+            This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
+        </p>
+        <div class="features">
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
+                <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
+                <li><strong>Irrigation Modes:</strong>
+                    <ul>
+                        <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
+                        <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
+                    </ul>
+                </li>
+                <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
+                <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
+            </ul>
+        </div>
+        <a href="more.html" class="learn-more-button">Learn more about R.A.I.N.</a>
+    </div>
 
     <script>
-        function navigateTo(target) {
-            const transition = document.getElementById("page-transition");
+        function toggleContent() {
+            const content = document.getElementById("content-container");
+            const button = document.getElementById("reveal-button");
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                setTimeout(function() {
+                    window.scrollTo({
+                        top: content.offsetTop,
+                        behavior: "smooth"
+                    });
+                }, 100);
+            } else {
+                content.style.display = "none";
+            }
+        }
 
-            // Activate the transition effect
-            transition.classList.add("active");
+        function adjustButtonOpacity() {
+            const button = document.getElementById("reveal-button");
+            const content = document.getElementById("content-container");
 
-            // Wait for the transition to complete, then navigate
-            setTimeout(() => {
-                window.location.href = target;
-            }, 500); // Match the CSS transition duration
+            const scrollPosition = window.scrollY;
+            const opacity = Math.max(1 - scrollPosition / 500, 0);
+            button.style.opacity = opacity;
         }
     </script>
 </body>
