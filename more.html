@@ -62,18 +62,25 @@
             background-color: #ffffff;
             color: #1e272e;
         }
+        .menu-logo {
+            width: 40px; /* Adjust size as needed */
+            height: auto;
+            margin-right: 10px; /* Space between logo and the "Main Page" button */
+        }
+
     </style>
 </head>
 <body>
     <!-- Menu -->
     <div class="menu">
-        <div class="menu-left">
+        <div style="display: flex; align-items: center;">
+            <img src="images/logo.png" alt="Logo" class="menu-logo">
             <a href="main.html">Main Page</a>
             <a href="Capstone.html">Irrigation Sensor</a>
         </div>
-        <div class="menu-right">
-            <a href="more.html">Learn More</a>
-        </div>
+        <a href="more.html">Learn More</a>
+    </div>
+
     </div>
 </body>
 </html>
