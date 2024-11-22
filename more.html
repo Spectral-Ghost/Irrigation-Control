@@ -30,17 +30,13 @@
         /* Menu Styles */
         .menu {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: left;
             background-color: #141414;
             padding: 15px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
-        }
-        .menu-left {
-            display: flex;
         }
         .menu a {
             text-decoration: none;
@@ -55,18 +51,6 @@
         .menu a:hover {
             background-color: #ffffff;
             color: #1e272e;
-        }
-        .menu-right a {
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        .menu-right a:hover {
-            background-color: #0056b3;
         }
         .content {
             margin: 50px auto;
@@ -106,13 +90,9 @@
 <body>
     <!-- Menu -->
     <div class="menu">
-        <div class="menu-left">
-            <a href="main.html">Main Page</a>
-            <a href="Capstone.html">Irrigation Sensor</a>
-        </div>
-        <div class="menu-right">
-            <a href="more.html">Learn More About R.A.I.N.</a>
-        </div>
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
+        <a href="more.html">Learn More About R.A.I.N.</a>
     </div>
 
     <!-- Content -->
