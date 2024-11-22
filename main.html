@@ -54,20 +54,21 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(to bottom, rgba(20, 20, 20, 0.8), rgba(0, 0, 0, 0)); /* Gradient opacity */
+            background: linear-gradient(to right, rgba(20, 20, 20, 1) 50%, rgba(0, 0, 0, 0.4) 100%);
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             width: 100%;
-            height: 50vh; /* Half the viewport height */
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+            overflow: hidden;
         }
         .rain-logo-container {
             margin-bottom: 20px;
         }
         .rain-image {
-            max-width: 120px;
+            max-width: 120px; /* Matches a balanced size */
             height: auto;
         }
         .text-container {
@@ -82,7 +83,7 @@
         }
         .rain-main-title {
             font-size: 60px;
-            color: #00aaff;
+            color: #00aaff; /* Matches the blue gradient from the logo */
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 2px;
@@ -238,24 +239,20 @@
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
                 setTimeout(() => {
-                    content.scrollIntoView({ behavior: "smooth", block: "end" });
+                    content.scrollIntoView({ behavior: "smooth", block: "start" });
                 }, 100);
-                button.style.bottom = `${content.offsetHeight + 20}px`;
             } else {
                 content.style.display = "none";
-                button.style.bottom = "20px";
             }
         }
 
         function adjustButtonOpacity() {
-            const revealButton = document.getElementById('reveal-button');
-            const scrollPosition = window.scrollY;
+            const button = document.getElementById("reveal-button");
+            const content = document.getElementById("content-container");
 
-            if (scrollPosition > 50) {
-                revealButton.style.opacity = 0.5;
-            } else {
-                revealButton.style.opacity = 1;
-            }
+            const scrollPosition = window.scrollY;
+            const opacity = Math.max(1 - scrollPosition / 500, 0);
+            button.style.opacity = opacity;
         }
     </script>
 </body>
