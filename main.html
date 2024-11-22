@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <style>
-        /* Global styles */
         body {
             background-image: url('images/background.png');
             background-size: cover;
@@ -23,27 +22,6 @@
             background-position: center center;
         }
 
-        /* Page transition styles */
-        .page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        /* Slide left (for main.html to Capstone.html) */
-        .page-left {
-            transform: translateX(-100%);
-        }
-
-        /* Slide right (for Capstone.html to main.html) */
-        .page-right {
-            transform: translateX(100%);
-        }
-
-        /* Menu styling */
         .menu {
             display: flex;
             justify-content: space-between;
@@ -55,7 +33,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .menu a {
             text-decoration: none;
             color: #ffffff;
@@ -66,46 +43,47 @@
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
-
         .menu a:hover {
             background-color: #ffffff;
             color: #1e272e;
         }
-
-        /* Main content styling */
         .main-container {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Align to the left */
             align-items: center;
-            height: 100%;
+            height: 100%; /* Full height of the viewport */
             text-align: left;
-            gap: 20px;
+            gap: 20px; /* Closer gap between text and image */
             padding: 0 10%;
         }
+        .menu-logo {
+            width: 40px; /* Adjust size as needed */
+            height: auto;
+            margin-right: 10px; /* Space between logo and the "Main Page" button */
+        }
+
 
         .text-container {
-            text-align: left;
-            max-width: 50%;
+            text-align: left; /* Align text to the left */
+            max-width: 50%; /* Limit the width of the text container */
         }
 
         .rain-title {
-            font-size: 48px;
+            font-size: 48px; /* Enlarged text */
             color: #ffffff;
             font-weight: 400;
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
-
         .rain-main-title {
-            font-size: 100px;
-            color: #00aaff;
+            font-size: 100px; /* Enlarged text */
+            color: #00aaff; /* Matches the blue gradient from the logo */
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 2px;
         }
-
         .rain-subtitle {
-            font-size: 24px;
+            font-size: 24px; /* Slightly larger text */
             color: #cfcfcf;
             font-weight: 300;
             letter-spacing: 1px;
@@ -114,11 +92,10 @@
         .rain-logo-container {
             margin-bottom: 20px;
             display: flex;
-            justify-content: left;
+            justify-content: center;
         }
-
         .rain-image {
-            max-width: 200px;
+            max-width: 200px; /* Slightly larger image */
             height: auto;
         }
 
@@ -155,7 +132,6 @@
             font-size: 24px;
             line-height: 1.6;
         }
-
         .features {
             margin-top: 20px;
             text-align: left;
@@ -204,7 +180,7 @@
 
             .main-container {
                 flex-direction: column;
-                align-items: center;
+                align-items: center; /* Center the content on smaller screens */
                 padding: 0 20px;
             }
 
@@ -227,89 +203,78 @@
     </style>
 </head>
 <body onscroll="adjustButtonOpacity()">
-    <!-- Page container for transitions -->
-    <div class="page" id="main-page">
-        <div class="menu">
-            <div style="display: flex; align-items: center;">
-                <img src="images/logo.png" alt="Logo" class="menu-logo">
-                <a href="main.html">Main Page</a>
-                <a href="Capstone.html">Irrigation Sensor</a>
-            </div>
-            <a href="more.html">Learn More</a>
-        </div>
+ <div class="menu">
+    <div style="display: flex; align-items: center;">
+        <img src="images/logo.png" alt="Logo" class="menu-logo">
+        <a href="main.html">Main Page</a>
+        <a href="Capstone.html">Irrigation Sensor</a>
+    </div>
+    <a href="more.html">Learn More</a>
+</div>
 
-        <div class="main-container">
-            <div class="text-container">
-                <div class="rain-title">Welcome to</div>
-                <div class="rain-main-title">R.A.I.N.</div>
-                <div class="rain-subtitle">Remote Automated Irrigation Network</div>
-            </div>
-            <div class="rain-logo-container">
-                <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
-            </div>
-        </div>
 
-        <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
 
-        <div class="content-container" id="content-container">
-            <h3>What is Remote Automated Irrigation Network?</h3>
-            <p>
-                This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
-            </p>
-            <div class="features">
-                <h3>Key Features:</h3>
-                <ul>
-                    <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
-                    <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
-                    <li><strong>Irrigation Modes:</strong>
-                        <ul>
-                            <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
-                            <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
-                    <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
-                </ul>
-            </div>
-            <a href="more.html" class="learn-more-button">Learn more about R.A.I.N.</a>
+    <div class="main-container">
+        <div class="text-container">
+            <div class="rain-title">Welcome to</div>
+            <div class="rain-main-title">R.A.I.N.</div>
+            <div class="rain-subtitle">Remote Automated Irrigation Network</div>
         </div>
+        <div class="rain-logo-container">
+            <img src="images/logo.png" alt="RAIN Logo" class="rain-image">
+        </div>
+    </div>
+
+    <button class="reveal-button" id="reveal-button" onclick="toggleContent()">What is R.A.I.N.?</button>
+
+    <div class="content-container" id="content-container">
+        <h3>What is Remote Automated Irrigation Network?</h3>
+        <p>
+            This web application provides a real-time interface for monitoring and controlling an irrigation system. Designed for efficient water management, it uses sensor data and user-defined thresholds to automate and optimize the irrigation process. Users can interact with the app to monitor current soil moisture levels, adjust thresholds, and control irrigation modes remotely.
+        </p>
+        <div class="features">
+            <h3>Key Features:</h3>
+            <ul>
+                <li><strong>Real-Time Humidity Monitoring:</strong> Displays the current soil moisture level in real-time, categorized as Dry, Moist, or Wet. The display color dynamically changes to visually indicate soil conditions.</li>
+                <li><strong>Threshold Management:</strong> Users can define and update thresholds for "Dry Max" and "Moist Max" levels, which automate irrigation based on sensor data.</li>
+                <li><strong>Irrigation Modes:</strong>
+                    <ul>
+                        <li><strong>Auto:</strong> Automatically starts and stops irrigation based on soil moisture levels and thresholds.</li>
+                        <li><strong>Manual Irrigation:</strong> Users can manually control irrigation by toggling the "Irrigate" button.</li>
+                    </ul>
+                </li>
+                <li><strong>Firebase Integration:</strong> Utilizes Firebase Realtime Database for instant updates across all connected devices, ensuring synchronization.</li>
+                <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
+            </ul>
+        </div>
+        <a href="more.html" class="learn-more-button">Learn more about R.A.I.N.</a>
     </div>
 
     <script>
         function toggleContent() {
             const content = document.getElementById("content-container");
             const button = document.getElementById("reveal-button");
-
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
-                button.innerHTML = "Hide Information";
+                setTimeout(function() {
+                    window.scrollTo({
+                        top: content.offsetTop,
+                        behavior: "smooth"
+                    });
+                }, 100);
             } else {
                 content.style.display = "none";
-                button.innerHTML = "What is R.A.I.N.?";
             }
         }
 
-        function transitionPage(fromPage, toPage) {
-            const from = document.getElementById(fromPage);
-            const to = document.getElementById(toPage);
+        function adjustButtonOpacity() {
+            const button = document.getElementById("reveal-button");
+            const content = document.getElementById("content-container");
 
-            // Slide out current page (from)
-            from.classList.add('page-left'); // Slide out to the left
-
-            // Slide in next page (to)
-            to.classList.remove('page-left');
-            to.classList.add('page-right'); // Slide in from the right
+            const scrollPosition = window.scrollY;
+            const opacity = Math.max(1 - scrollPosition / 500, 0);
+            button.style.opacity = opacity;
         }
-
-        // Example: When clicking on links to change pages, trigger transitions
-        document.querySelectorAll('.menu a').forEach(link => {
-            link.addEventListener('click', function (event) {
-                const currentPage = document.querySelector('.page:not(.page-left):not(.page-right)');
-                const targetPage = this.getAttribute('href').replace('.html', '-page'); // Assuming id for pages is like main-page
-                transitionPage(currentPage.id, targetPage);
-                event.preventDefault(); // Prevent default link behavior
-            });
-        });
     </script>
 </body>
 </html>
