@@ -283,8 +283,8 @@
         function toggleIrrigate() {
             manualIrrigate = !manualIrrigate;
             manualIrrigateRef.set(manualIrrigate);
+            setIrrigation(manualIrrigate); // Update the solenoid status
         }
-
         function updateButtonState() {
             document.getElementById('autoButton').className = autoMode ? 'button on' : 'button off';
             document.getElementById('irrigateButton').className = manualIrrigate ? 'button on' : 'button off';
