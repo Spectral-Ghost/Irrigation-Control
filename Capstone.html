@@ -245,6 +245,14 @@
         let autoStartTime = "06:00";
         let autoEndTime = "18:00";
 
+    function updateButtonState() {
+            const autoButton = document.getElementById("autoButton");
+            const irrigateButton = document.getElementById("irrigateButton");
+
+            irrigateButton.classList.toggle("on", manualIrrigate && !autoMode);
+            irrigateButton.classList.toggle("off", !(manualIrrigate && !autoMode));
+        }
+
         autoModeRef.on('value', (snapshot) => {
             autoMode = snapshot.val();
             updateButtonState();
