@@ -290,11 +290,12 @@
             thresholdsRef.set({ dryMax, moistMax });
         }
 
-        function updateSchedule() {
-            autoStartTime = document.getElementById("autoStartTime").value;
-            autoEndTime = document.getElementById("autoEndTime").value;
-            autoScheduleRef.set({ autoStartTime, autoEndTime });
-            alert("Auto mode schedule updated!");
+        function updateThresholds() {
+            dryMax = parseInt(document.getElementById("dryMax").value);
+            moistMax = parseInt(document.getElementById("moistMax").value);
+            thresholdsRef.set({ dryMax, moistMax });
+            document.getElementById("displayDryMax").textContent = dryMax;
+            document.getElementById("displayMoistMax").textContent = moistMax;
         }
 
         function checkAutoModeSchedule() {
