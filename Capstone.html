@@ -274,8 +274,10 @@
 
         function toggleAuto() {
             autoMode = !autoMode;
+            manualIrrigate = false;
             autoModeRef.set(autoMode);
-            if (!autoMode) setIrrigation(false);
+            autoModeRef.set(autoMode);
+            manualIrrigateRef.set(manualIrrigate);
         }
 
         function toggleIrrigate() {
