@@ -200,6 +200,15 @@
         <button class="button on" onclick="updateThresholds()">Set Thresholds</button>
     </div>
 
+    <div class="threshold-container">
+        <h3>Auto Mode Schedule</h3>
+        <label for="autoStartTime">Start Time:</label>
+        <input type="time" id="autoStartTime" value="06:00">
+        <label for="autoEndTime">End Time:</label>
+        <input type="time" id="autoEndTime" value="18:00">
+        <button class="button on" onclick="updateSchedule()">Set Schedule</button>
+    </div>
+
     <div class="button-container">
         <button id="autoButton" class="button off" onclick="toggleAuto()">Auto</button>
         <button id="irrigateButton" class="button off" onclick="toggleIrrigate()">Irrigate</button>
@@ -225,72 +234,46 @@
         let manualIrrigate = false;
         let dryMax = 600;
         let moistMax = 1300;
+        let autoStartTime = "06:00";
+        let autoEndTime = "18:00";
 
         const humidityRef = database.ref('Sensor/ldr_data');
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
         const thresholdsRef = database.ref('Sensor/thresholds');
         const autoModeRef = database.ref('Control/autoMode');
         const manualIrrigateRef = database.ref('Control/manualIrrigate');
+        const autoScheduleRef = database.ref('Control/autoSchedule');
 
-        autoModeRef.on('value', (snapshot) => {
-            autoMode = snapshot.val();
-            updateButtonState();
-            if (!autoMode) setIrrigation(false);
+        autoScheduleRef.on('value', (snapshot) => {
+            const schedule = snapshot.val();
+            if (schedule) {
+                autoStartTime = schedule.autoStartTime || autoStartTime;
+                autoEndTime = schedule.autoEndTime || autoEndTime;
+            }
         });
 
-        manualIrrigateRef.on('value', (snapshot) => {
-            manualIrrigate = snapshot.val();
-            updateButtonState();
-        });
+        function checkAutoModeSchedule() {
+            const currentTime = new Date().toTimeString().slice(0, 5);
+            const isWithinSchedule = currentTime >= autoStartTime && currentTime <= autoEndTime;
 
-        function updateButtonState() {
-            const autoButton = document.getElementById("autoButton");
-            const irrigateButton = document.getElementById("irrigateButton");
-
-            autoButton.classList.toggle("on", autoMode);
-            autoButton.classList.toggle("off", !autoMode);
-
-            irrigateButton.classList.toggle("on", manualIrrigate && !autoMode);
-            irrigateButton.classList.toggle("off", !(manualIrrigate && !autoMode));
-        }
-
-        function toggleAuto() {
-            autoMode = !autoMode;
-            manualIrrigate = false;
-            autoModeRef.set(autoMode);
-            manualIrrigateRef.set(manualIrrigate);
-            if (!autoMode) setIrrigation(false);
-        }
-
-        function toggleIrrigate() {
-            if (!autoMode) {
-                manualIrrigate = !manualIrrigate;
-                manualIrrigateRef.set(manualIrrigate);
-                setIrrigation(manualIrrigate);
+            if (isWithinSchedule && !autoMode) {
+                autoMode = true;
+                autoModeRef.set(autoMode);
+            } else if (!isWithinSchedule && autoMode) {
+                autoMode = false;
+                autoModeRef.set(autoMode);
+                toggleIrrigate(false);
             }
         }
 
-        function setIrrigation(status) {
-            irrigationStatusRef.set(status);
-        }
+        setInterval(checkAutoModeSchedule, 60000);
 
-        function updateThresholds() {
-            dryMax = parseInt(document.getElementById("dryMax").value);
-            moistMax = parseInt(document.getElementById("moistMax").value);
-            thresholdsRef.set({ dryMax, moistMax });
-            document.getElementById("displayDryMax").textContent = dryMax;
-            document.getElementById("displayMoistMax").textContent = moistMax;
+        function updateSchedule() {
+            autoStartTime = document.getElementById("autoStartTime").value;
+            autoEndTime = document.getElementById("autoEndTime").value;
+            autoScheduleRef.set({ autoStartTime, autoEndTime });
         }
-
-        humidityRef.on('value', (snapshot) => {
-            const humidity = snapshot.val();
-            document.getElementById("humidity").textContent = humidity || "--";
-            if (humidity < dryMax) {
-                setIrrigation(true);
-            } else if (humidity > moistMax) {
-                setIrrigation(false);
-            }
-        });
+        // Other existing code...
     </script>
 </body>
 </html>
