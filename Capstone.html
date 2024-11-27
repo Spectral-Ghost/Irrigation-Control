@@ -235,7 +235,13 @@
         let dryMax = 600;
         let moistMax = 1300;
 
-        const humidityRef = database.ref('Sensor/ldr_data');
+       const humidityRef = database.ref('Sensor/ldr_data');
+
+        humidityRef.on('value', (snapshot) => {
+            const humidityValue = snapshot.val();
+            document.getElementById('humidityRef').textContent = humidityValue !== null ? humidityValue : '--';
+        });
+
         const irrigationStatusRef = database.ref('Sensor/irrigation_status');
         const thresholdsRef = database.ref('Sensor/thresholds');
         const autoModeRef = database.ref('Control/autoMode');
