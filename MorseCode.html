@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morse Code Translator</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .output {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Morse Code Translator</h1>
+  <p>This page fetches Morse code from the Firebase Realtime Database and translates it into letters and words.</p>
+
+  <div class="output" id="output">
+    <strong>Translated Text:</strong>
+    <p id="translatedText">Waiting for data...</p>
+  </div>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAoGA6OqSZXZnRD471zOPyaBf6341NlYks",
+      authDomain: "capstone-58ebe.firebaseapp.com",
+      databaseURL: "https://capstone-58ebe-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "capstone-58ebe",
+      storageBucket: "capstone-58ebe.appspot.com",
+      messagingSenderId: "your-messaging-sender-id",
+      appId: "your-app-id"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Morse code dictionary
+    const morseCodeDict = {
+      ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E", "..-.": "F",
+      "--.": "G", "....": "H", "..": "I", ".---": "J", "-.-": "K", ".-..": "L",
+      "--": "M", "-.": "N", "---": "O", ".--.": "P", "--.-": "Q", ".-.": "R",
+      "...": "S", "-": "T", "..-": "U", "...-": "V", ".--": "W", "-..-": "X",
+      "-.--": "Y", "--..": "Z", "-----": "0", ".----": "1", "..---": "2",
+      "...--": "3", "....-": "4", ".....": "5", "-....": "6", "--...": "7",
+      "---..": "8", "----.": "9", "|": " " // Separator for spaces between words
+    };
+
+    // Function to translate Morse code to text
+    function translateMorse(morseCode) {
+      return morseCode.split(" ").map(code => morseCodeDict[code] || "").join("");
+    }
+
+    // Listen for changes in the Firebase Realtime Database
+    const morseRef = firebase.database().ref("/morseCode");
+    morseRef.on("value", (snapshot) => {
+      const morseCode = snapshot.val();
+      console.log("Morse Code from Firebase:", morseCode);
+
+      if (morseCode) {
+        const translatedText = translateMorse(morseCode);
+        document.getElementById("translatedText").innerText = translatedText;
+      } else {
+        document.getElementById("translatedText").innerText = "No data available.";
+      }
+    });
+  </script>
+</body>
+</html>
