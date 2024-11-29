@@ -25,10 +25,10 @@
 </head>
 <body>
   <h1>Morse Code Translator</h1>
-  <p>This page fetches Morse code from the Firebase Realtime Database and translates it into letters and words.</p>
+  <p>This page fetches Morse code from the Firebase Realtime Database and translates it into a growing sentence. Type `.....` to reset the sentence.</p>
 
   <div class="output" id="output">
-    <strong>Translated Text:</strong>
+    <strong>Current Sentence:</strong>
     <p id="translatedText">Waiting for data...</p>
   </div>
 
@@ -59,6 +59,9 @@
       "---..": "8", "----.": "9", "|": " " // Separator for spaces between words
     };
 
+    // Variable to store the current sentence
+    let currentSentence = "";
+
     // Function to translate Morse code to text
     function translateMorse(morseCode) {
       return morseCode.split(" ").map(code => morseCodeDict[code] || "").join("");
@@ -71,8 +74,20 @@
       console.log("Morse Code from Firebase:", morseCode);
 
       if (morseCode) {
-        const translatedText = translateMorse(morseCode);
-        document.getElementById("translatedText").innerText = translatedText;
+        // Check for reset command
+        if (morseCode === ".....") {
+          currentSentence = ""; // Reset the sentence
+          document.getElementById("translatedText").innerText = "Sentence reset.";
+        } else {
+          // Translate Morse code and add it to the sentence
+          const translatedText = translateMorse(morseCode);
+          if (translatedText) {
+            currentSentence += translatedText;
+            document.getElementById("translatedText").innerText = currentSentence;
+          } else {
+            document.getElementById("translatedText").innerText = "Invalid Morse code.";
+          }
+        }
       } else {
         document.getElementById("translatedText").innerText = "No data available.";
       }
